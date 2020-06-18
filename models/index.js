@@ -3,46 +3,46 @@ const Post = require('./Post');
 const Like = require('./Like');
 const Comment = require('./Comment');
 
-// create associations - user can make many posts 
+// user can make many posts 
 User.hasMany(Post, {
     foreignKey: 'user_id'
 }); 
 
-// A post can only belong to one user 
+// post can only belong to one user 
 Post.belongsTo(User, {
     foreignKey: 'user_id'
 })
 
-// total of how many votes a user create
+// see all posts that belong to a user 
 User.belongsToMany(Post, {
     through: Like,
     as: 'liked_posts',
     foreignKey: 'user_id'
 });
 
-// see all the posts user voted on 
+// see all the posts user liked
 Post.belongsToMany(User, {
     through: Like, 
     as: 'liked_posts',
     foreignKey: 'post_id'
 }); 
 
-// connected vote to user
-Vote.belongsTo(User, {
+// connected like to user
+Like.belongsTo(User, {
     foreignKey: 'user_id'
 });
 
-// connected vote to post
-Vote.belongsTo(Post, {
+// connected like to post
+Like.belongsTo(Post, {
     foreignKey: 'post_id'
 }); 
 
-// connected user to vote
+// connected user to like
 User.hasMany(Like, {
     foreignKey: 'user_id'
 }); 
 
-// connected post to vote 
+// connected post to like
 Post.hasMany(Like, {
     foreignKey: 'post_id'
 }); 
