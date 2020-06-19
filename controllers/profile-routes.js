@@ -12,10 +12,10 @@ router.get('/', withAuth, (req, res) => {
       },
       attributes: [
         'id',
-        'post_url',
+        'post_text',
         'title',
         'created_at',
-        [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+        [sequelize.literal('(SELECT COUNT(*) FROM like WHERE post.id = like.post_id)'), 'like_count']
       ],
       include: [
         {
@@ -42,3 +42,5 @@ router.get('/', withAuth, (req, res) => {
         res.status(500).json(err);
       });
   });
+
+module.exports = router;

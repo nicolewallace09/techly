@@ -15,11 +15,11 @@ class Post extends Model {
             },
             attributes: [
               'id',
-              'post_url',
+              'post_text',
               'title',
               'created_at',
               [
-                sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = like.post_id)'),
+                sequelize.literal('(SELECT COUNT(*) FROM like WHERE post.id = like.post_id)'),
                 'like_count'
               ]
             ]
@@ -42,11 +42,11 @@ Post.init(
         type: DataTypes.STRING,
         allowNull: false
       },
-      post_url: {
+      post_text: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          isURL: true
+          len: [4, 150]
         }
       },
       user_id: {
