@@ -48,12 +48,13 @@ router.get('/:id', (req, res) => {
 
 
 // create a comment by an authenticated user; POST /api/comments
-router.post('/', withAuth, (req,res) => {
+router.post('/', (req,res) => {
     //check session
     if(req.session){
         Comment.create({
             comment_text: req.body.comment_text,
-            user_id: req.session.user_id,
+            //user_id: req.session.user_id,
+            user_id: req.body.user_id,
             post_id: req.body.post_id
         })
         .then(dbCommentData => res.json(dbCommentData))
@@ -66,7 +67,7 @@ router.post('/', withAuth, (req,res) => {
 
  
 // update a comment by ID; PUT /api/comments/1
-router.put('/:id', withAuth, (req, res) => {
+router.put('/:id',  (req, res) => {
   Comment.update({
       comment_text: req.body.comment_text
     },
@@ -88,7 +89,7 @@ router.put('/:id', withAuth, (req, res) => {
 
 
 // delete comment by ID; DELETE /api/comments/1
-router.delete('/:id', withAuth, (req,res) => {
+router.delete('/:id', (req,res) => {
     Comment.destroy ({
         where: {
             id: req.params.id

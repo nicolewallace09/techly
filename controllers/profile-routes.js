@@ -4,11 +4,13 @@ const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 // profile displaying posts created by logged in users 
-router.get('/', withAuth, (req, res) => {
+router.get('/', /*withAuth,*/ (req, res) => {
     Post.findAll({
       where: {
         // use the ID from the session
-        user_id: req.session.user_id
+       // user_id: req.session.user_id
+        // test with req.body
+        user_id: req.body.user_id
       },
       attributes: [
         'id',
@@ -35,7 +37,7 @@ router.get('/', withAuth, (req, res) => {
       .then(dbPostData => {
         // serialize data before passing to template
         const posts = dbPostData.map(post => post.get({ plain: true }));
-        res.render('profile', { posts, loggedIn: true });
+        res.render('profile', { posts, loggedIn: false }); // change loggedIn back to true after testing
       })
       .catch(err => {
         console.log(err);

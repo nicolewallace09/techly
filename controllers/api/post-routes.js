@@ -84,7 +84,7 @@ router.get('/:id', (req,res)=>{
 
 
 // create a post; POST /api/posts
-router.post('/', withAuth, (req,res)=>{
+router.post('/', /*withAuth,*/ (req,res)=>{
     //expects {title, post_text, user_id}
     Post.create({
         title: req.body.title,
@@ -131,7 +131,7 @@ router.put('/:id', (req,res) => {
 
 
 //delete a post; DELETE /api/posts/1 
-router.delete('/:id', withAuth, (req,res)=>{
+router.delete('/:id', /*withAuth,*/ (req,res)=>{
     Post.destroy({
         where: {
             id: req.params.id
