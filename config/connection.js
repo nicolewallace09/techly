@@ -1,20 +1,13 @@
 // import the Sequelize constructor from the library
 const Sequelize = require('sequelize');
-
+// dotenv 
 require('dotenv').config();
 
-let sequelize;
+// -- create connection to the mysql db -- (through the process.env variable, used by Heroku's JawsDB)
+    const sequelize = process.env.JAWSDB_URL
+      ? new Sequelize(process.env.JAWSDB_URL)
+        : new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PW,
+          { dialect: "mysql" } )
 
-// when deployed on Heroku
-if (process.env.JAWSDB_URL) {
-  sequelize = new Sequelize(process.env.JAWSDB_URL);
-} else {
-  // localhost
-  sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PW, {
-    host: 'localhost',
-    dialect: 'mysql',
-    port: 3306
-  });
-}
-
+// export
 module.exports = sequelize;

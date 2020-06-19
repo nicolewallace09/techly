@@ -1,55 +1,84 @@
-const sequelize = require('../config/connection');
-const { Post, User, Comment } = require('../models');
+// front-end, all user-facing routes, ie. homepage and login page
 const router = require('express').Router();
 
-// rendering all posts to homepage
+// populate the template with sequelize data
+const sequelize = require('../config/connection');
+const { Post, User, Comment } = require('../models');
+
+// router.get('/', (req, res) => {
+//   res.render('homepage');
+// });
+
+// router.get('/', (req, res) => {
+//     res.render('homepage', {
+//       id: 1,
+//       post_url: 'https://handlebarsjs.com/guide/',
+//       title: 'Handlebars Docs',
+//       created_at: new Date(),
+//       vote_count: 10,
+//       comments: [{}, {}],
+//       user: {
+//         username: 'test_user'
+//       }
+//     });
+//   });
+  
+// populate the template with sequelize data
 router.get('/', (req, res) => {
     console.log(req.session);
-
-    Post.findAll({
-        attributes: [
-          'id',
-          'post_text',
-          'title',
-          'created_at',
-          [sequelize.literal('(SELECT COUNT(*) FROM like WHERE post.id = like.post_id)'), 'like_count']
-        ],
-        include: [
-          {
-            model: Comment,
-            attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-            include: {
-              model: User,
-              attributes: ['username']
-            }
-          },
-          {
-            model: User,
-            attributes: ['username']
-          }
-        ]
-      })
-        .then(dbPostData => {
-          // pass a single post object into the homepage template
-          const posts = dbPostData.map(post => post.get({ plain: true }));
-          res.render('homepage', { posts, loggedIn: req.session.loggedIn });
-        })
-        .catch(err => {
-          console.log(err);
-          res.status(500).json(err);
-        });
-});
-
-// redirecting users to homepage once they log in
-router.get('/login', (req, res) => {
-    if(req.session.loggedIn) {
-        res.redirect('/');
-        return; 
+Post.findAll({
+    attributes: [
+    'id',
+    'post_url',
+    'title',
+    'created_at',
+    [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+    ],
+    include: [
+    {
+        model: Comment,
+        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+        include: {
+        model: User,
+        attributes: ['username']
+        }
+    },
+    {
+        model: User,
+        attributes: ['username']
     }
-    res.render('login');
+    ]
+})
+    .then(dbPostData => {
+      // pass a single post object into the homepage template
+      const posts = dbPostData.map(post => post.get({ plain: true }));
+      console.log(dbPostData[0]);
+      // res.render('homepage', dbPostData[0]);
+      // // res.render('homepage', dbPostData[0].get({ plain: true }));
+      res.render('homepage', { posts });
+    })
+    .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+    });
 });
 
-// rendering one post to the single-post page
+// login 
+
+router.get('/login', (req, res) => {
+    if (req.session.loggedIn) {
+      res.redirect('/');
+      return;
+    }  
+    res.render('login');
+  });
+
+// router.get('/login', (req, res) => {
+//     console.log(req.session);
+//     res.render('login');
+//   });
+
+// -- route to a single post
 router.get('/post/:id', (req, res) => {
     Post.findOne({
       where: {
@@ -57,10 +86,10 @@ router.get('/post/:id', (req, res) => {
       },
       attributes: [
         'id',
-        'post_text',
+        'post_url',
         'title',
         'created_at',
-        [sequelize.literal('(SELECT COUNT(*) FROM like WHERE post.id = like.post_id)'), 'like_count']
+        [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
       ],
       include: [
         {
@@ -87,17 +116,14 @@ router.get('/post/:id', (req, res) => {
         const post = dbPostData.get({ plain: true });
   
         // pass data to template
-        res.render('single-post', { post, loggedIn: req.session.loggedIn});
+        res.render('single-post', { post });
       })
       .catch(err => {
         console.log(err);
         res.status(500).json(err);
       });
-});
-
-module.exports = router; 
+  });
 
 
-
-
+module.exports = router;
 

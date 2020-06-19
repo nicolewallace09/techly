@@ -1,35 +1,36 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
+// const User = require('./User');
+const sequelize = require('../config/connection'); 
 
-// create our Post model
+// create our Post model -- updated when refactoreds
 class Post extends Model {
-    //based on the post model and not an instance method
-    static upvote(body, models) {
-        return models.Like.create({
-          user_id: body.user_id,
-          post_id: body.post_id
-        }).then(() => {
-          return Post.findOne({
-            where: {
-              id: body.post_id
-            },
-            attributes: [
-              'id',
-              'post_text',
-              'title',
-              'created_at',
-              [
-                sequelize.literal('(SELECT COUNT(*) FROM like WHERE post.id = like.post_id)'),
-                'like_count'
-              ]
-            ]
-          });
-        });
-    }
+  static upvote(body, models) {
+    return models.Vote.create({
+      user_id: body.user_id,
+      post_id: body.post_id
+    }).then(() => {
+      return Post.findOne({
+        where: {
+          id: body.post_id
+        },
+        attributes: [
+          'id',
+          'post_url',
+          'title',
+          'created_at',
+          [
+            sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'),
+            'vote_count'
+          ]
+        ]
+      });
+    });
+  }
 }
 
+// define the columns in the Post, configure the naming conventions, and pass the current connection instance to initialize the Post model
 
-// create fields/columns for Post model
+// created fields/columns for Post model
 Post.init(
     {
       id: {
@@ -42,11 +43,11 @@ Post.init(
         type: DataTypes.STRING,
         allowNull: false
       },
-      post_text: {
+      post_url: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          len: [4, 150]
+          isURL: true
         }
       },
       user_id: {

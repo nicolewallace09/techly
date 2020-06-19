@@ -1,15 +1,18 @@
+// import
 const router = require('express').Router();
-
 const apiRoutes = require('./api');
-const homeRoutes = require('./home-routes.js');
-const profileRoutes = require('./profile-routes.js');
-
+// define URL endpoint, as /api/... collecting the packaged group of API endpoints and prefixing them with the path /api.
 router.use('/api', apiRoutes);
-router.use('/', homeRoutes);
-//router.use('/profile', profileRoutes);
 
+// front-end
+const homeRoutes = require('./home-routes.js');
+router.use('/', homeRoutes);
+
+// back-end
+  // produces error if endpoint does not exist
 router.use((req, res) => {
   res.status(404).end();
 });
 
+// export
 module.exports = router;
