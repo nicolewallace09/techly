@@ -1,6 +1,9 @@
 # Techly
 ![Github licence](http://img.shields.io/badge/license-MIT-blue.svg)
 
+## Heroku
+https://techly.herokuapp.com/
+
 ## Description 
 This project is a CMS-style social networking site where developers can publish posts and comment on other developers post. This application follows the MVC paradigm in it's structure and uses Handlebars.js as the templating language, Sequelize as the ORM, and the express-session npm package for authentication. 
 
