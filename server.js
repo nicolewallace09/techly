@@ -20,7 +20,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sess = {
   secret: 'project2 super secret',
-  cookie: {},
+  cookie: { maxAge: 60000},
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
