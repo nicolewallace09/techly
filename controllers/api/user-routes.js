@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const { User, Post, Like, Comment } = require('../../models');
-// const withAuth = require('../../utils/auth');
+const { User, Post, Vote, Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 // GET /api/users
 // http://localhost:3001/api/users
@@ -41,8 +41,8 @@ router.get('/:id', (req, res) => {
           {
             model: Post,
             attributes: ['title'],
-            through: Like,
-            as: 'liked_posts'
+            through: Vote,
+            as: 'voted_posts'
           }
         ]
       })
@@ -120,6 +120,48 @@ router.post('/logout', (req, res) => {
     } else {
         res.status(404).end();
     }
+});
+
+// PUT /api/users/1 - similar to UPDATE 
+router.put('/:id', /*withAuth,*/ (req, res) => {
+    User.update(req.body, {
+        individualHooks: true,
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(dbUserData => {
+        if (!dbUserData[0]) {
+            res.status(404).json({ message: 'No user found with this id'});
+            return;
+        }
+        res.json(dbUserData);
+    })
+    .catch(err => {
+        console.log(err); 
+        res.status(500).json(err);
+    });
+
+});
+
+// DELETE /api/users/1
+router.delete('/:id', /*withAuth,*/ (req, res) => {
+    User.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(dbUserData => {
+            if (!dbUserData) {
+                res.status(404).json({ message: 'No user found with this id'});
+                return;
+            }
+            res.json(dbUserData);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 module.exports = router;

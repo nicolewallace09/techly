@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
           'post_text',
           'title',
           'created_at',
-          [sequelize.literal('(SELECT COUNT(*) FROM like WHERE post.id = like.post_id)'), 'like_count']
+          [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
         ],
         include: [
           {
@@ -49,6 +49,12 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
+// rendering sign up page 
+router.get('/signup', (req, res) => {
+  res.render('signup');
+});
+
+
 // rendering one post to the single-post page
 router.get('/post/:id', (req, res) => {
     Post.findOne({
@@ -60,7 +66,7 @@ router.get('/post/:id', (req, res) => {
         'post_text',
         'title',
         'created_at',
-        [sequelize.literal('(SELECT COUNT(*) FROM like WHERE post.id = like.post_id)'), 'like_count']
+        [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
       ],
       include: [
         {

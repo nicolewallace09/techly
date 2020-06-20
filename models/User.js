@@ -44,11 +44,18 @@ User.init(
     },
     github: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        validate: {
+            isURL: true
+        }
+
     },
     linkedin: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        validate: {
+            isURL: true
+        }
     },
     bio: {
         type: DataTypes.TEXT,

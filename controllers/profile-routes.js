@@ -15,7 +15,7 @@ router.get('/', withAuth, (req, res) => {
         'post_text',
         'title',
         'created_at',
-        [sequelize.literal('(SELECT COUNT(*) FROM like WHERE post.id = like.post_id)'), 'like_count']
+        [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
       ],
       include: [
         {
@@ -41,6 +41,43 @@ router.get('/', withAuth, (req, res) => {
         console.log(err);
         res.status(500).json(err);
       });
-  });
+});
+
+router.get('/edit/:id', withAuth, (req, res) => {
+    Post.findOne({
+    where: {
+    id: req.params.id
+    },
+    attributes: ['id', 
+                'post_text', 
+                'title',
+                'created_at',
+                [sequelize.literal('(SELECT COUNT(*) FROM like WHERE post.id = like.post_id)'), 'like_count']
+            ],
+    include: [
+    {
+        model: User,
+        attributes: ['username']
+    },
+    {
+        model: Comment,
+        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+        include: {
+        model: User,
+        attributes: ['username']
+        }
+    }
+    ]
+    })
+    .then(dbPostData => {
+      const post = dbPostData.get({ plain: true });
+      res.render('edit-posts', { post , loggedIn: true }); 
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
 
 module.exports = router;
