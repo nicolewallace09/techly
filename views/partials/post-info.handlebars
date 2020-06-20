@@ -14,25 +14,38 @@
         <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
         </svg> Like</button>
     {{!-- {{/if}} --}}
-        <a class="btn text-warning" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">View Comments</a>
+    {{#if comments}}
+    <a class="btn text-warning" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">View Comments</a>
 
     <div class="collapse" id="collapseExample">
         <div class="card card-body">
-        {{> comments comments}}
+            <div class="overflow-auto">
+                {{> comments comments}}
+            </div>
         </div>
     </div>
+    {{/if}}
+    </div>
+    {{#if loggedIn}}
+    <a class="btn text-warning" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Add Comment</a>
 
-{{!-- {{#if loggedIn}}
-<form class="comment-form">
-  <div>
-    <textarea name="comment-body"></textarea>
-  </div>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+           
+        <form class="comment-form">
+            <div>
+                <textarea name="comment-body"></textarea>
+            </div>
 
-  <div>
-    <button type="submit">Add Comment</button>
-  </div>
-</form>
-{{/if}} --}}
+            <div>
+                <button type="submit">Add Comment</button>
+            </div>
+        </form>
+            
+
+        </div>
+    </div>
+    {{/if}}
 
 </article>
 
