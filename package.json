@@ -1,7 +1,7 @@
 {
   "name": "techly",
   "version": "1.0.0",
-  "description": "Social networking platform for beginning developers",
+  "description": "Social networking platform for beginning developers to communicate with each other",
   "main": "server.js",
   "scripts": {
     "test": "jest",
