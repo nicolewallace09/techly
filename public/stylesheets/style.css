@@ -45,3 +45,13 @@ img {
 body {
   font-family: arial;
 }
+
+.form-group {
+  font-weight: bold;
+
+}
+
+#form-signup {
+  margin-top: 30px;
+
+}
