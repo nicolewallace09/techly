@@ -1,6 +1,6 @@
 const User = require('./User');
 const Post = require('./Post');
-const Like = require('./Like');
+const Likes = require('./Likes');
 const Comment = require('./Comment');
 
 // user can make many posts 
@@ -15,14 +15,14 @@ Post.belongsTo(User, {
 
 // see all posts that belong to a user 
 User.belongsToMany(Post, {
-    through: Like,
+    through: Likes,
     as: 'liked_posts',
     foreignKey: 'user_id'
 });
 
 // see all the posts user liked
 Post.belongsToMany(User, {
-    through: Like, 
+    through: Likes, 
     as: 'liked_posts',
     foreignKey: 'post_id'
 }); 
@@ -38,12 +38,12 @@ Like.belongsTo(Post, {
 }); 
 
 // connected user to like
-User.hasMany(Like, {
+User.hasMany(Likes, {
     foreignKey: 'user_id'
 }); 
 
 // connected post to like
-Post.hasMany(Like, {
+Post.hasMany(Likes, {
     foreignKey: 'post_id'
 }); 
 
@@ -63,4 +63,4 @@ Post.hasMany(Comment, {
     foreignKey: 'post_id'
 });
 
-module.exports = { User, Post, Like, Comment };
+module.exports = { User, Post, Likes, Comment };
