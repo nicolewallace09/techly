@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post, User, Comment } = require('../../models');
+const { Post, User, Vote, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 
@@ -11,7 +11,9 @@ router.get('/', (req,res)=>{
             'id', 
             'title', 
             'post_text', 
-            'created_at'],
+            'created_at',
+            [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+        ],
         order: [['created_at', 'DESC']],
         include: [
             {
@@ -49,7 +51,9 @@ router.get('/:id', (req,res)=>{
             'id', 
             'title', 
             'post_text', 
-            'created_at'],
+            'created_at',
+            [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+        ],
         include: [
             {
                 model: User,
@@ -99,6 +103,20 @@ router.post('/', withAuth, (req,res)=>{
 
 });
 
+// PUT /api/posts/upvote
+router.put('/upvote', withAuth, (req, res) => {
+    // make sure the session exists first
+    if (req.session) {
+      // pass session id along with all destructured properties on req.body
+      Post.upvote({ ...req.body, user_id: req.session.user_id }, { Vote, Comment, User })
+        .then(updatedVoteData => res.json(updatedVoteData))
+        .catch(err => {
+          console.log(err);
+          res.status(500).json(err);
+        });
+    }
+  });
+  
 
 //update a post  PUT /api/posts/1 
 router.put('/:id', (req,res) => {

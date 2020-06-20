@@ -1,21 +1,12 @@
 // dependencies
 const router = require('express').Router();
-const { Post, Comment } = require('../../models');
-const withAuth = require('../../utils/auth')
+const { Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 
 // get all comments; GET /api/comments
 router.get('/', (req,res) => {
-    Comment.findAll({
-        include:
-            {
-                model: Post,
-                attributes: [
-                    'title', 
-                    'post_text'
-                ]
-            }   
-    })
+    Comment.findAll({})
     .then(dbCommentData => {
         res.json(dbCommentData)
     })
@@ -108,4 +99,4 @@ router.delete('/:id', withAuth, (req,res) => {
 });
 
 
-module.exports = router
+module.exports = router;
