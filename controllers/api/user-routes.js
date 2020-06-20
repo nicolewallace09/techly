@@ -27,20 +27,20 @@ router.get('/:id', (req, res) => {
         include: [
           {
             model: Post,
-            attributes: ['id', 'title', 'post_text', 'created_at']
+            attributes: ['id', /*'title',*/ 'post_text', 'created_at']
           },
           // include the Comment model here:
           {
             model: Comment,
             attributes: ['id', 'comment_text', 'created_at'],
             include: {
-              model: Post,
-              attributes: ['title']
+              /*model: Post,
+              attributes: ['title']*/
             }
           },
           {
             model: Post,
-            attributes: ['title'],
+            attributes: ['post_text'],
             through: Vote,
             as: 'voted_posts'
           }

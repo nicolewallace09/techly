@@ -24,4 +24,4 @@ async function upvoteClickHandler(event) {
   }
 }
 
-document.querySelector('#like').addEventListener('click', upvoteClickHandler);
+document.querySelector('#like-btn').addEventListener('click', upvoteClickHandler);

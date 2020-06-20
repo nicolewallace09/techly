@@ -1,10 +1,12 @@
-  <div class="form-group">
+  
+  {{#if loggedIn}}
+  <form class="new-post-form">
     {{!-- <label for="post-input" class="col-sm-2 control-label">Email:</label> --}}
     <div class="col-sm-4">
-      <input type="post-input" class="form-control" id="post-input" placeholder="What's on your mind, {{ username }}?" />
-
+      <input type="text" class="form-control" id="post-input" name="post-text" placeholder="What's on your mind?" /><button type="submit" class="btn btn-warning" id="btn-post">Post</button>
     </div>
-  </div>
+</form>
+  {{/if}}
 
 
 <ol class="post-list">
@@ -15,3 +17,10 @@
   </ul>
 {{/each}}
 </ol>
+
+{{#if loggedIn}}
+<script src="/javascript/upvote.js"></script>
+<script src="/javascript/comment.js"></script>
+<script src="/javascript/add-post.js"></script>
+{{/if}}
+

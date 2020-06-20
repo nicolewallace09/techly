@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const sequelize = require('../../config/connection');
 const { Post, User, Vote, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
@@ -9,7 +10,7 @@ router.get('/', (req,res)=>{
     Post.findAll({
         attributes: [
             'id', 
-            'title', 
+            // 'title', 
             'post_text', 
             'created_at',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
@@ -49,7 +50,7 @@ router.get('/:id', (req,res)=>{
         },
         attributes: [
             'id', 
-            'title', 
+            // 'title', 
             'post_text', 
             'created_at',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
@@ -88,10 +89,10 @@ router.get('/:id', (req,res)=>{
 
 
 // create a post; POST /api/posts
-router.post('/', /*withAuth,*/ (req,res)=>{
+router.post('/', withAuth, (req,res)=>{
     //expects {title, post_text, user_id}
     Post.create({
-        title: req.body.title,
+        // title: req.body.title,
         post_text: req.body.post_text,
         user_id: req.session.user_id
     })
@@ -125,7 +126,7 @@ router.put('/:id', (req,res) => {
     //if req.body has exact key value pair to match the model, you can just req.body instead 
     Post.update(
         {
-            title: req.body.title,
+            // title: req.body.title,
             post_text: req.body.post_text
         },
         {
@@ -149,7 +150,7 @@ router.put('/:id', (req,res) => {
 
 
 //delete a post; DELETE /api/posts/1 
-router.delete('/:id', /*withAuth,*/ (req,res)=>{
+router.delete('/:id', withAuth, (req,res)=>{
     Post.destroy({
         where: {
             id: req.params.id
