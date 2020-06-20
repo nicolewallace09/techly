@@ -29,6 +29,7 @@
     "express": "^4.17.1",
     "express-handlebars": "^4.0.4",
     "express-session": "^1.17.1",
+    "infinite-scroll": "^3.0.6",
     "mysql2": "^2.1.0",
     "sequelize": "^5.21.13"
   }

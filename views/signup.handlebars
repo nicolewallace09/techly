@@ -1,4 +1,59 @@
-<form class="signup-form">
+<form class="form-horizontal" id="form-signup">
+  
+  <div class="form-group">
+    <label for="username-signup" class="col-sm-2 control-label">Username:</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="username-signup" placeholder="required" />
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="email-signup" class="col-sm-2 control-label">Email:</label>
+    <div class="col-sm-4">
+      <input type="email" class="form-control" id="email-signup" placeholder="required" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password-signup" class="col-sm-2 control-label">Password:</label>
+    <div class="col-sm-4">
+      <input type="password" class="form-control" id="password-signup" placeholder="required" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="github-signup" class="col-sm-2 control-label">GitHub:</label>
+    <div class="col-sm-4">
+      <input type="url" class="form-control" id="github-signup" placeholder="optional" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="linkedin-signup" class="col-sm-2 control-label">LinkedIn:</label>
+    <div class="col-sm-4">
+      <input type="url" class="form-control" id="linkedin-signup" placeholder="optional" />
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="bio-text" class="col-sm-2 control-label">Bio:</label>
+    <div class="col-sm-10">
+      <textarea type="text" class="form-control" rows="3" id="bio-signup" placeholder="optional"></textarea>
+    </div>
+  </div>
+
+  <div>
+    <button type="submit" class="btn btn-warning" id="btn-signup">Sign-up</button>
+  </div>
+
+</form>
+
+<script src="/javascript/signup.js"></script>
+  
+
+{{!-- Original code from nicole - saving it just in case i need to revert --}}
+
+{{!-- <form class="signup-form">
   <div>
     <label for="username-signup">Username:</label>
     <input type="text" id="username-signup" />
@@ -29,4 +84,4 @@
 </form>
 
 <!-- javascript file-->
-<script src="/javascript/signup.js"></script>
+<script src="/javascript/signup.js"></script> --}}
