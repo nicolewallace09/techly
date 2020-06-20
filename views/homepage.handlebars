@@ -1,0 +1,17 @@
+  <div class="form-group">
+    {{!-- <label for="post-input" class="col-sm-2 control-label">Email:</label> --}}
+    <div class="col-sm-4">
+      <input type="post-input" class="form-control" id="post-input" placeholder="What's on your mind, {{ username }}?" />
+
+    </div>
+  </div>
+
+
+<ol class="post-list">
+<!-- posts array -->
+{{#each posts as |post|}}
+  <ul>
+      {{> post-info post }}
+  </ul>
+{{/each}}
+</ol>
