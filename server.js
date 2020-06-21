@@ -14,7 +14,7 @@ const hbs = exphbs.create({helpers});
 const session = require('express-session');
 
 const app = express();
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 3001;
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
@@ -41,6 +41,6 @@ app.set('view engine', 'handlebars');
 app.use(routes);
 
 // turn on connection to db and server
-sequelize.sync({ force: true }).then(() => {    // true will recrete the tables, set back to false after creating
+sequelize.sync({ force: true }).then(() => {    // true will recreate the tables, set back to false after creating
   app.listen(PORT, () => console.log('Now listening on port ' + PORT ));
 });
