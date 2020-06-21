@@ -113,6 +113,10 @@ a, #logout, .username, ::placeholder, #view-comment-btn {
   margin: 10px;
 }
 
+.card-posts {
+  border: 2px solid black;
+}
+
 
 
 
