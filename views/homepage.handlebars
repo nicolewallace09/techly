@@ -1,13 +1,11 @@
-  
-  {{#if loggedIn}}
+{{#if loggedIn}}
   <form class="new-post-form">
     {{!-- <label for="post-input" class="col-sm-2 control-label">Email:</label> --}}
     <div class="col-sm-4">
       <input type="text" class="form-control" id="post-input" name="post-text" placeholder="What's on your mind?" /><button type="submit" class="btn btn-warning" id="btn-post">Post</button>
     </div>
-</form>
-  {{/if}}
-
+ </form>
+{{/if}}
 
 <ol class="post-list">
 <!-- posts array -->
