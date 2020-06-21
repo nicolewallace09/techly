@@ -54,6 +54,11 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
+// rendering users to individual profile page
+router.get('/single-profile/:id', (req, res) => {
+  res.render('single-profile');
+});
+
 
 // rendering one post to the single-post page
 router.get('/post/:id', (req, res) => {
@@ -98,6 +103,56 @@ router.get('/post/:id', (req, res) => {
       .catch(err => {
         console.log(err);
         res.status(500).json(err);
+      });
+});
+
+// rendering one user to the single-profile page
+router.get('/profile/:id', (req, res) => {
+  User.findOne({
+      attributes: { exclude: ['password'] },
+      where: {
+        id: req.params.id,
+        username: req.body.username,
+        github: req.body.github,
+        linkedin: req.body.linkedin
+      },
+      include: [
+        {
+          model: Post,
+          attributes: ['id', /*'title',*/ 'post_text', 'created_at']
+        },
+        // include the Comment model here:
+        {
+          model: Comment,
+          attributes: ['id', 'comment_text', 'created_at'],
+          include: {
+            /*model: Post,
+            attributes: ['title']*/
+          }
+        },
+        {
+          model: Post,
+          attributes: ['post_text'],
+          through: Vote,
+          as: 'voted_posts'
+        }
+      ]
+    })
+      .then(dbUserData => {
+          if (!dbUserData) {
+              res.status(404).json({ message: 'No user found with this id'});
+              return;
+          }
+             // serialize the data
+            const user = { username: username, github: github, linkedin: linkedin}
+
+            // pass data to template
+            res.render('single-profile', { user, loggedIn: req.session.loggedIn});
+    
+      })
+      .catch(err => {
+          console.log(err);
+          res.status(500).json(err);
       });
 });
 

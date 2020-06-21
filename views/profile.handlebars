@@ -1,1 +1,12 @@
-{{user.username}}
+{{#if posts.length}}
+<section>
+  <h2>Your Posts</h2>
+  <ol>
+    {{#each posts}}
+    <li>
+      {{> post-info}}
+    </li>
+    {{/each}}
+  </ol>
+</section>
+{{/if}}

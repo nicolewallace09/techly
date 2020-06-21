@@ -1,20 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
 {{#if loggedIn}}
-  <form class="new-post-form">
+    <form class="new-post-form">
     {{!-- <label for="post-input" class="col-sm-2 control-label">Email:</label> --}}
-    <div class="col-sm-4">
-      <input type="text" class="form-control" id="post-input" name="post-text" placeholder="What's on your mind?" /><button type="submit" class="btn btn-warning" id="btn-post">Post</button>
-    </div>
- </form>
+        {{!-- <div class="col-sm-4"> --}}
+        <input type="text" class="form-control" id="post-input" name="post-text" placeholder="What's on your mind?" /><button type="submit" class="btn btn-warning" id="btn-post">Post</button>
+        {{!-- </div> --}}
+    </form>
 {{/if}}
+    </div>
+  </div>
+</div>
+
+<div class="container-title">
+  <div class="row">
+    <div class="col-12">
+      <h2>News Feed</h2>
+    </div>
+  </div>
+</div>
 
 <ol class="post-list">
 <!-- posts array -->
 {{#each posts as |post|}}
   <ul>
-      {{> post-info post }}
+      {{> post-info post }} 
+    </div>
   </ul>
 {{/each}}
 </ol>
+
+
 
 
 {{#if loggedIn}}
