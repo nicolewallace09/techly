@@ -1,0 +1,17 @@
+<article class="single-post-info">
+    <div class="username">
+        <a href="/user/{{id}}" target="_blank" class="text-warning" style="text-decoration: none">{{user.username}}</a> {{format_date created_at}}
+    </div>
+      <div class="text">
+        {{post_text}}
+      </div>
+    <div class="meta">
+        {{vote_count}} {{format_plural "Like" vote_count}} {{comments.length}} {{format_plural "comment" comments.length}}</a>
+    </div>
+    {{!-- {{#if loggedIn}} --}}
+    <div class="likes">
+        <button id="like" class="text-warning btn"><svg class="bi bi-heart-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+        </svg> Like</button>
+    </div>
+</article>
