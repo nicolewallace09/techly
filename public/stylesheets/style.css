@@ -1,3 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #343a40;
+}
+
 .info {
   float: left;
   text-align: top;
@@ -71,6 +79,54 @@ body {
   padding: 0px;
   margin: 65px 5px;
 }
+
+.new-post-form {
+  margin: 65px 5px;
+}
+
+#btn-post {
+  margin: 15px 5px;
+}
+
+.post {
+  font-size: 18px;
+}
+
+.post-container {
+  margin: 50px 320px;
+  padding: 5px;
+}
+
+.container-title {
+  margin: 10px 400px;
+}
+
+a, #logout, .username, #view-comment-btn {
+  font-size: 18px;
+}
+
+::placeholder {
+  color: #ffc107;
+}
+
+.container-comments {
+  margin: 50px 350px;
+  color: white;
+  opacity: 70%;
+}
+
+.comments {
+  margin: 10px;
+}
+
+.card-posts {
+  border: thin solid white;
+  opacity: 70%;
+}
+
+
+
+
 
 
 

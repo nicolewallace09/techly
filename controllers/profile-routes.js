@@ -8,8 +8,6 @@ router.get('/', withAuth,(req, res) => {
     Post.findAll({
       where: {
         // use the ID from the session
-        // user_id: req.session.user_id
-        // test with req.body
         user_id: req.body.user_id
       },
       attributes: [
