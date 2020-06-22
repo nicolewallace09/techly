@@ -111,10 +111,12 @@ a, #logout, .username, #view-comment-btn {
 
 .container-comments {
   margin: 30px 400px;
+  color: white;
+  opacity: 70%;
 }
 
 .comments {
-  margin: 10px;
+  margin: 5px;
 }
 
 .card-posts {
