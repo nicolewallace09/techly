@@ -93,7 +93,7 @@ body {
 }
 
 .post-container {
-  margin: 50px 350px;
+  margin: 50px 320px;
   padding: 5px;
 }
 
@@ -101,8 +101,12 @@ body {
   margin: 10px 400px;
 }
 
-a, #logout, .username, ::placeholder, #view-comment-btn {
+a, #logout, .username, #view-comment-btn {
   font-size: 18px;
+}
+
+::placeholder {
+  color: #ffc107;
 }
 
 .container-comments {
@@ -114,7 +118,8 @@ a, #logout, .username, ::placeholder, #view-comment-btn {
 }
 
 .card-posts {
-  border: 2px solid black;
+  border: thin solid white;
+  opacity: 70%;
 }
 
 
