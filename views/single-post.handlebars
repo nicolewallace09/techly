@@ -3,8 +3,13 @@
 <!-- displaying articles -->
 {{> single-info post}}
 
-
-{{> comments post.comments}}
+<div class="container-comments">
+    <div class="row">
+        <div class="col-12">
+            {{> comments post.comments}}
+        </div>
+    </div>
+</div>
 
 <script src="/javascript/comment.js"></script>
 <script src="/javascript/upvote.js"></script>
