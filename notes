@@ -1,0 +1,3 @@
+1.  in post-routes.js I turned off withAuth from create so I can post in insomnia
+2.  replaced user_id: req.body.user_id with req.session.user_id
+3.  line 97 changed from session to body, so I can build out profile.homepage
