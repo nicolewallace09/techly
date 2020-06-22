@@ -110,13 +110,13 @@ a, #logout, .username, #view-comment-btn {
 }
 
 .container-comments {
-  margin: 30px 400px;
+  margin: 50px 350px;
   color: white;
   opacity: 70%;
 }
 
 .comments {
-  margin: 5px;
+  margin: 10px;
 }
 
 .card-posts {
