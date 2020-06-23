@@ -1,12 +1,19 @@
 {{#if posts.length}}
 <section>
-  <h2>Your Posts</h2>
-  <ol>
-    {{#each posts}}
-    <li>
-      {{> post-info}}
-    </li>
-    {{/each}}
-  </ol>
+  <div id="profile-header-container">
+    <h2 class="text-warning" id="profile-header">Your Posts</h2>
+  </div>
+  
+  <div>
+    <ol class="profile-list">
+      {{#each posts}}
+      <li>
+        {{> post-info}}
+      </li>
+      {{/each}}
+    </ol>
+  </div>
 </section>
 {{/if}}
+
+
