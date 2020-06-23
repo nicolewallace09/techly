@@ -89,7 +89,7 @@ router.get('/:id', (req,res)=>{
 
 
 // create a post; POST /api/posts
-router.post('/', /*withAuth,*/ (req,res)=>{
+router.post('/', withAuth, (req,res)=>{
     //expects {title, post_text, user_id}
     Post.create({
         

@@ -1,6 +1,6 @@
-1.  in post-routes.js I turned off withAuth from create so I can post in insomnia
+1.  in post-routes.js I turned off withAuth from create so I can post in insomnia // changed back
 2.  replaced user_id: req.body.user_id with req.session.user_id
-3.  line 97 post-routes changed from session to body, so I can build out profile.homepage
+3.  line 97 post-routes changed from session to body, so I can build out profile.homepage  // I changed back
 4.  line 47 comment-routes changes from session to body ///// I changed it back
 
 

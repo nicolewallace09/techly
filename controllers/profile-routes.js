@@ -43,6 +43,53 @@ router.get('/', withAuth,(req, res) => {
       });
 });
 
+
+
+router.get('/', (req, res) => {
+  console.log( 'i am here');
+  User.findAll({
+    where: {
+      // use the ID from the session
+      user_id: req.session.user_id
+      
+    },
+
+    attributes: [
+      'id',
+      'username',
+      'email',
+      'github',
+      'linkedin',
+      'bio'
+    ],
+  })
+  
+  .then(dbUserData => {
+    console.log(dbUserData);
+    if (!dbUserData) {
+        res.status(404).json({ message: 'No user found'});
+        return;
+    }
+       // serialize the data
+      const user = { username: username, email: email, github: github, linkedin: linkedin, bio: bio }
+      //const user = dbUserData.get({ plain: true });
+      // pass data to template
+      res.render('profile', { user, loggedIn: true});
+
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+  });
+});
+
+
+
+
+
+
+
+
 router.get('/:id', withAuth, (req, res) => {
     Post.findOne({
     where: {
