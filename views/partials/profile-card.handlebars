@@ -1,6 +1,5 @@
-
-
-
+{{!-- Possibly use a partial if we decide to use the card in mulitple place; not being used right now
+ --}}
 
 <div class="card-container bg-dark" id="profile-card-container">
   
@@ -8,39 +7,11 @@
     <div class="card-body bg-dark" id="profile-card-body">
       <h4 class="card-title bg-dark" id="profile-card-username"> {{ username }} David Stahl</h4>
       <p class="card-text bg-dark" id="profile-card-bio">Full stack developer</p>
-      <a href="#" class="card-link bg-dark" id="profile-card-email">Email: {{ email }} email here</a>
+      <a href="#" class="card-link bg-dark" id="profile-card-email">Email: email here</a>
       <a href="#" class="card-link bg-dark" id="profile-card-linkedin">LinkedIn: linkedin here</a>
       <a href="#" class="card-link bg-dark" id="profile-card-github">Github:  github here</a>
     </div>
   </div>
 
 </div>
-
-
-
-{{#if posts.length}}
-<section>
-  <div id="profile-header-container">
-    <h2 class="text-warning" id="profile-header">Your Posts</h2>
-  </div>
-  
-  <div>
-    <ol class="profile-list">
-      {{#each posts}}
-      <li>
-        {{> post-info}}
-      </li>
-      {{/each}}
-    </ol>
-  </div>
-</section>
-{{/if}}
-
-
-
-{{!-- <ul>
-      {{> profile-card }} 
-    
-</ul> --}}
-
 

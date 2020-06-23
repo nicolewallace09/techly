@@ -1,4 +1,26 @@
 1.  in post-routes.js I turned off withAuth from create so I can post in insomnia
 2.  replaced user_id: req.body.user_id with req.session.user_id
 3.  line 97 post-routes changed from session to body, so I can build out profile.homepage
-4.  line 47 comment-routes changes from session to body
+4.  line 47 comment-routes changes from session to body ///// I changed it back
+
+
+
+
+
+
+
+
+ITEMS TO CHANGE / WORK ON
+
+GENERAL:
+1.  getting muliple pages instead or redirect...let's see if we can change that
+
+
+SIGN-UP page:
+1. the github item requests an URL unless I have an https// ; possibly we can add some logic so we only have to enter the specific / personal part  example.  DJS593 instead of the whole address
+
+
+
+
+LIKES:
+1. If you hit the like button more than once you get an error...can we get an alert instead

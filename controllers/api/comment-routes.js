@@ -39,9 +39,9 @@ router.get('/:id', (req, res) => {
 
 
 // create a comment by an authenticated user; POST /api/comments
-router.post('/', (req,res) => {
+router.post('/', withAuth, (req,res) => {
     //check session
-    if(req.session){
+    if (req.session){
         Comment.create({
             comment_text: req.body.comment_text,
             user_id: req.session.user_id,

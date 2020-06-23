@@ -98,6 +98,12 @@ body {
   /* margin was originally 320px */
 }
 
+.comment-form {
+    margin: 50px 305px;
+    padding: 5px;
+    opacity: 70%;
+}
+
 .container-title {
   margin: 10px 400px;
 }
@@ -114,6 +120,7 @@ a, #logout, .username, #view-comment-btn {
   margin: 50px 350px;
   color: white;
   opacity: 70%;
+  font-size: 18px;
 }
 
 .comments {
@@ -149,10 +156,32 @@ a, #logout, .username, #view-comment-btn {
   display: inline-block;
 }
 
+#profile-row {
+  justify-content: center;
+}
 
+#profile-card-container {
+  display: flex;
+  justify-content: center;
+  height: 150px;
+  /* width: 50%; */
+  margin-bottom: 50px;
+}
 
+#profile-card {
+  height: 150px;
+  color: white;
+  border-color: white;
+}
 
+#profile-list {
+  color: white;
+}
 
+#profile-card-body {
+  height: 100%;
+  margin: 0;
+}
 
 
 
