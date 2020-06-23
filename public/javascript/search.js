@@ -1,0 +1,42 @@
+  async function searchFormHandler(event) {
+    event.preventDefault();
+  
+    const password = document.querySelector('#post-search').value.trim();
+
+
+    // function SearchFunction() {
+      var input, filter, ul, li, a, i, txtValue;
+      input = document.getElementById('searchInput');
+      filter = input.value.toUpperCase();
+      ul = document.getElementById("searchUL");
+      li = ul.getElementsByTagName('li');
+    
+        for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        textVal = a.textContent || a.innerText;
+        if (textVal.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+        } else {
+          li[i].style.display = "none";
+        }
+      }
+    }
+  
+    // if (search) {
+    //   const response = await fetch('/api/users/search', {
+    //     method: 'search',
+    //     body: JSON.stringify({
+    //       search
+    //     }),
+    //     headers: { 'Content-Type': 'application/json' }
+    //   });
+  
+    //   if (response.ok) {
+    //     document.location.replace('/');
+    //   } else {
+    //     alert(response.statusText);
+    //   }
+    // }
+// }
+
+document.querySelector('.search-form').addEventListener('submit', searchFormHandler);
