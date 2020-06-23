@@ -55,12 +55,6 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
-// rendering users to individual profile page
-router.get('/single-profile/:id', (req, res) => {
-  res.render('single-profile');
-});
-
-
 // rendering one post to the single-post page
 router.get('/post/:id', (req, res) => {
     Post.findOne({
