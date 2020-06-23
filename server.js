@@ -1,5 +1,5 @@
 const express = require('express');
-const multer = requite('multer');
+const multer = require('multer');
 const routes = require('./controllers');
 const sequelize = require('./config/connection');
 const path = require('path');
