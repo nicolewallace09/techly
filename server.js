@@ -1,21 +1,8 @@
 const express = require('express');
-const multer = require('multer');
 const routes = require('./controllers');
 const sequelize = require('./config/connection');
 const path = require('path');
 
-// set storage engine
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/uploads')
-  }, 
-  filename: function(req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-  }
-})
-
-// init upload
-const upload = multer({storage: storage}).single('img');
 
 // helper function
 const helpers = require('./utils/helpers');

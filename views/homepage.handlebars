@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12">
 {{#if loggedIn}}
-    <form class="new-post-form">
+    <form class="new-post-form" action="/">
     {{!-- <label for="post-input" class="col-sm-2 control-label">Email:</label> --}}
         {{!-- <div class="col-sm-4"> --}}
         <input type="text" class="form-control bg-dark text-white" id="post-input" name="post-text" placeholder="What's on your mind?" /><button type="submit" class="btn btn-warning" id="btn-post">Post</button>
@@ -16,7 +16,10 @@
 <div class="container-title">
   <div class="row">
     <div class="col-12">
-      <h2 class="text-warning">News Feed</h2>
+      <div id="header-newsfeed-container">
+        <h2 class="text-warning" id="header-newsfeed">News Feed</h2>
+      </div>
+      
     </div>
   </div>
 </div>

@@ -93,8 +93,9 @@ body {
 }
 
 .post-container {
-  margin: 50px 320px;
+  margin: 25px 75px;
   padding: 5px;
+  /* margin was originally 320px */
 }
 
 .comment-form {
@@ -131,6 +132,56 @@ a, #logout, .username, #view-comment-btn {
   opacity: 70%;
 }
 
+
+/* profile page style */
+
+.profile-list {
+  list-style: none;
+
+}
+
+#profile-header-container {
+  text-align: center;
+}
+
+#profile-header {
+  display: inline-block;
+}
+
+#header-newsfeed-container {
+  text-align: center;
+}
+
+#header-newsfeed {
+  display: inline-block;
+}
+
+#profile-row {
+  justify-content: center;
+}
+
+#profile-card-container {
+  display: flex;
+  justify-content: center;
+  height: 150px;
+  /* width: 50%; */
+  margin-bottom: 50px;
+}
+
+#profile-card {
+  height: 150px;
+  color: white;
+  border-color: white;
+}
+
+#profile-list {
+  color: white;
+}
+
+#profile-card-body {
+  height: 100%;
+  margin: 0;
+}
 
 
 

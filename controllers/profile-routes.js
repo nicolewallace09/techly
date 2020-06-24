@@ -8,7 +8,7 @@ router.get('/', withAuth,(req, res) => {
     Post.findAll({
       where: {
         // use the ID from the session
-        user_id: req.body.user_id
+        user_id: req.session.user_id
       },
       attributes: [
         'id',
@@ -28,7 +28,7 @@ router.get('/', withAuth,(req, res) => {
         },
         {
           model: User,
-          attributes: ['username']
+          attributes: ['username', 'email', 'github', 'linkedin', 'bio']
         }
       ]
     })
@@ -37,11 +37,13 @@ router.get('/', withAuth,(req, res) => {
         const posts = dbPostData.map(post => post.get({ plain: true }));
         res.render('profile', { posts, loggedIn: true }); 
       })
-      .catch(err => {
+      .catch(err => {w
         console.log(err);
         res.status(500).json(err);
       });
 });
+
+
 
 router.get('/:id', withAuth, (req, res) => {
     Post.findOne({

@@ -1,6 +1,21 @@
 const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 const router = require('express').Router();
+const multer = require('multer');
+const path = require('path');
+
+// set storage engine
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads')
+  }, 
+  filename: function(req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+})
+
+// init upload
+const upload = multer({storage: storage}).single('img');
 
 // rendering all posts to homepage
 router.get('/', (req, res) => {
@@ -40,6 +55,11 @@ router.get('/', (req, res) => {
           res.status(500).json(err);
         });
 });
+
+router.post('/', upload, (req, res) => {
+  console.log(req.file, req.body)
+  res.send()
+})
 
 // redirecting users to homepage once they log in
 router.get('/login', (req, res) => {

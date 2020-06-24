@@ -19,7 +19,7 @@ router.get('/', (req,res)=>{
         include: [
             {
                 model: User,
-                attributes: ['username']
+                attributes: ['id','username', 'email', 'linkedin', 'github', 'bio']
             },
             {
                 model: Comment,
@@ -92,7 +92,7 @@ router.get('/:id', (req,res)=>{
 router.post('/', withAuth, (req,res)=>{
     //expects {title, post_text, user_id}
     Post.create({
-        // title: req.body.title,
+        
         post_text: req.body.post_text,
         user_id: req.session.user_id
     })
