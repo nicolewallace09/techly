@@ -4,8 +4,25 @@ const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 // profile displaying posts created by logged in users 
+
 router.get('/', withAuth,(req, res) => {
-    Post.findAll({
+Promise.all ([
+  
+User.findAll({
+  where: {
+    // use the ID from the session
+    id: req.session.user_id
+  },
+  attributes: [
+    'username',
+    'email',
+    'github',
+    'linkedin',
+    'bio'
+  ],
+}),
+
+Post.findAll({
       where: {
         // use the ID from the session
         user_id: req.session.user_id
@@ -31,18 +48,20 @@ router.get('/', withAuth,(req, res) => {
           attributes: ['username', 'email', 'github', 'linkedin', 'bio']
         }
       ]
-    })
-      .then(dbPostData => {
-        // serialize data before passing to template
-        const posts = dbPostData.map(post => post.get({ plain: true }));
-        res.render('profile', { posts, loggedIn: true }); 
+    }) ])
+      .then(arrData => {
+        console.log(arrData);
+        //serialize data before passing to template
+        const users = arrData[0].map(user => user.get({ plain: true }));
+        const posts = arrData[1].map(post => post.get({ plain: true }));
+        res.render('profile', { posts, users, loggedIn: true }); 
       })
-      .catch(err => {w
+      .catch(err => {
         console.log(err);
         res.status(500).json(err);
       });
 });
-
+      
 
 
 router.get('/:id', withAuth, (req, res) => {
