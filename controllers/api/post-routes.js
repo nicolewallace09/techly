@@ -19,7 +19,7 @@ router.get('/', (req,res)=>{
         include: [
             {
                 model: User,
-                attributes: ['username']
+                attributes: ['id','username', 'email', 'linkedin', 'github', 'bio']
             },
             {
                 model: Comment,
