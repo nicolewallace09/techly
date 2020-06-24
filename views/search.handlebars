@@ -1,12 +1,12 @@
-<form class="search-form">
-  <div>
-    <label for="email-search">Search:</label>
-    <input type="text" id="email-search" />
-  </div>
-  <div>
-    <button type="submit">search</button>
-  </div>
-</form>
+<form class="form-inline my-2 my-lg-0" id="search-form">
+          <input type="text" class="form-control mr-sm-2 bg-dark text-white" id="search-input" name="search-text" placeholder="Search" aria-label="Search">
+          <button type="submit" class="btn btn-outline-warning my-2 my-sm-0" id="btn-post">Search</button>
+    </form>
+  
 
-<!-- javascript reference -->
+
+{{#if loggedIn}}
+<script src="/javascript/add-post.js"></script>
 <script src="/javascript/search.js"></script>
+{{/if}}
+
