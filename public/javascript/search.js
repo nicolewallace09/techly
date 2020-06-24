@@ -1,42 +1,27 @@
-  async function searchFormHandler(event) {
-    event.preventDefault();
+async function searchFormHandler(event) {
+  event.preventDefault();
+
+  // const search = document.querySelector('#search-input').value.trim();
+  const post_text = document.querySelector('input[name="search-input"]').value;
   
-    const password = document.querySelector('#post-search').value.trim();
+  // console.log(search);
 
+  // const response = await fetch(`/api/search`, {
+const response = await fetch(`/search`, {
+        method: 'GET',
+        body: JSON.stringify({
+          // title,
+          post_text
+        }),
+          headers: { 'Content-Type': 'application/json'  }
+    });
 
-    // function SearchFunction() {
-      var input, filter, ul, li, a, i, txtValue;
-      input = document.getElementById('searchInput');
-      filter = input.value.toUpperCase();
-      ul = document.getElementById("searchUL");
-      li = ul.getElementsByTagName('li');
-    
-        for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        textVal = a.textContent || a.innerText;
-        if (textVal.toUpperCase().indexOf(filter) > -1) {
-          li[i].style.display = "";
-        } else {
-          li[i].style.display = "none";
-        }
-      }
+    if (response.ok) {
+        document.location.replace('/');
+    } else {
+        alert(response.statusText);
     }
-  
-    // if (search) {
-    //   const response = await fetch('/api/users/search', {
-    //     method: 'search',
-    //     body: JSON.stringify({
-    //       search
-    //     }),
-    //     headers: { 'Content-Type': 'application/json' }
-    //   });
-  
-    //   if (response.ok) {
-    //     document.location.replace('/');
-    //   } else {
-    //     alert(response.statusText);
-    //   }
-    // }
-// }
+}
 
-document.querySelector('.search-form').addEventListener('submit', searchFormHandler);
+
+document.querySelector('#search-form').addEventListener('submit', newFormHandler);
