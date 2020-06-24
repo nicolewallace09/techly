@@ -9,7 +9,7 @@ const searchRoutes = require('./search-routes.js');
 router.use('/', homeRoutes);
 router.use('/api', apiRoutes);
 router.use('/profile', profileRoutes);
-router.use('/profile-card-routes', profileCardRoutes);
+router.use('/profile', profileCardRoutes);
 router.use('/search', searchRoutes);
 
 router.use((req, res) => {
