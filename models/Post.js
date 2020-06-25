@@ -55,7 +55,14 @@ Post.init(
           model: 'user',
           key: 'id'
         }
-      }
+      },
+      img: {
+        type: DataTypes.BLOB,
+        allowNull: true,
+        validate: {
+          len: [0, 255]
+          }
+        }
     },
     {
       sequelize,

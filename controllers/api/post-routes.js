@@ -2,6 +2,24 @@ const router = require('express').Router();
 const sequelize = require('../../config/connection');
 const { Post, User, Vote, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
+const { post } = require('../home-routes');
+
+
+const multer = require('multer');
+const path = require('path');
+
+// set storage engine
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads')
+  }, 
+  filename: function(req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+})
+
+// init upload
+const upload = multer({storage: storage}).single('img');
 
 
 // get all posts; GET "/api/posts"
@@ -13,6 +31,7 @@ router.get('/', (req,res)=>{
             // 'title', 
             'post_text', 
             'created_at',
+            'img'
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
         ],
         order: [['created_at', 'DESC']],
@@ -55,6 +74,7 @@ router.get('/:id', (req,res)=>{
             'created_at',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
         ],
+        order: [['created_at', 'DESC']],
         include: [
             {
                 model: User,
@@ -89,10 +109,10 @@ router.get('/:id', (req,res)=>{
 
 
 // create a post; POST /api/posts
-router.post('/', withAuth, (req,res)=>{
-    //expects {title, post_text, user_id}
+router.post('/', withAuth, upload, (req,res)=>{
+    // expects {title, post_text, user_id}
     Post.create({
-        
+        img: req.file,
         post_text: req.body.post_text,
         user_id: req.session.user_id
     })
@@ -101,8 +121,17 @@ router.post('/', withAuth, (req,res)=>{
         console.log(err);
         res.status(500).json(err);
     });
+    
+    console.log(req.file)
 
 });
+
+// // uploading image to post 
+// router.post('/', withAuth, upload, (req, res) => {
+//     console.log(req.file, req.body)
+//     res.send()
+
+//   })
 
 // PUT /api/posts/upvote
 router.put('/upvote', withAuth, (req, res) => {

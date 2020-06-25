@@ -2,10 +2,19 @@
   <div class="row">
     <div class="col-12">
 {{#if loggedIn}}
-    <form class="new-post-form" action="/">
+    <form class="new-post-form" action="/api/posts" enctype="multipart/form-data">
     {{!-- <label for="post-input" class="col-sm-2 control-label">Email:</label> --}}
         {{!-- <div class="col-sm-4"> --}}
-        <input type="text" class="form-control bg-dark text-white" id="post-input" name="post-text" placeholder="What's on your mind?" /><button type="submit" class="btn btn-warning" id="btn-post">Post</button>
+
+        {{!--Post text--}} 
+        <input type="text" class="form-control bg-dark text-white" id="post-input" name="post-text" placeholder="What's on your mind?" />
+      
+        {{!-- Upload Image--}}
+        <input type="file" name="img" />
+        {{!-- <input type="submit" value="Upload a file"/> --}}
+
+        {{!-- Submit Button --}}
+        <button type="submit" class="btn btn-warning" id="btn-post">Post</button>
         {{!-- </div> --}}
     </form>
 {{/if}}

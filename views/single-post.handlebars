@@ -29,6 +29,8 @@
 </div>
 
 
-
+{{!-- Please keep in or there will be error for users not logged in --}}
+{{#if loggedIn}} 
 <script src="/javascript/comment.js"></script>
 <script src="/javascript/upvote.js"></script>
+{{/if}}

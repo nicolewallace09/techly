@@ -21,7 +21,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sess = {
   secret: 'project2 super secret',
-  cookie: { maxAge: 60000},
+  cookie: {},
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
@@ -42,6 +42,6 @@ app.set('view engine', 'handlebars');
 app.use(routes);
 
 // turn on connection to db and server
-sequelize.sync({ force: false }).then(() => {    // true will recrete the tables, set back to false after creating
+sequelize.sync({ force: true}).then(() => {    // true will recrete the tables, set back to false after creating
   app.listen(PORT, () => console.log('Now listening on port ' + PORT));
 });
