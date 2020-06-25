@@ -1,15 +1,15 @@
--- SQL Insert statements created through a mysql dump, used then to seed the techly 
--- mysql locally or the Jawsdb remotely through the MSQL Workbench SQL editor.
--- for more info, contact by https://github.com/ktrnthsnr
+-- Insert content of various users, posts, comments, and votes
+----------------------------------------------------------------
+-- More info: These are sample inserts to seed the mysql db locally 
+--   or seed remotely through MySql workbench, into the Heroku JawsDB mysql database tables.
+-- For more info, contact by https://github.com/ktrnthsnr
 
+-- Important note: 
+-- These inserts are for a blank db only. 
+-- If there are users added to the https://techly.herokuapp.com/ site, this will cause these scripts to fail.
+-- To clear the tables before running the insert statements, truncate the tables via mysql or run API DELETE route specifying the ID, 
+-- for example in Insomnia run DELETE https://techly.herokuapp.com/api/users/1
 
---      This sample start script will update the homepage 
---      with a few sample users\posts\comments\votes
---------------------------------------------------------------------------
-
--- Important note:  User table ID's begin at 0, so there can't be any users yet added. 
--- These inserts are for a blank db.
--- If there are any data, truncate via mysql or run API DELETE route https:/<site>/api/user/1
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
@@ -24,6 +24,7 @@ INSERT INTO `post` VALUES (1,'Insomnia is giving me this error: 503 service unav
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
 INSERT INTO `comment` VALUES (1,'That may be there are no tables created. Try to recreate tables in Heroku, and redeploy',1,1,'2020-06-24 06:59:34','2020-06-24 06:59:34'),(2,'Try: git add -A and git commit -m prior to running git push heroku master',6,3,'2020-06-24 07:08:13','2020-06-24 07:08:13'),(3,'Thanks, that worked!!',5,3,'2020-06-24 07:09:19','2020-06-24 07:09:19'),(4,'Congrats!',1,4,'2020-06-24 07:11:11','2020-06-24 07:11:11');
@@ -36,3 +37,4 @@ LOCK TABLES `vote` WRITE;
 INSERT INTO `vote` VALUES (4,1,4),(1,2,2),(3,5,3);
 /*!40000 ALTER TABLE `vote` ENABLE KEYS */;
 UNLOCK TABLES;
+
