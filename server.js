@@ -40,9 +40,11 @@ app.set('view engine', 'handlebars');
 // turn on routes
 app.use(routes);
 
-// passport middleware
-//var app = express();
-//app.use(require('serve-static')(__dirname + '/../../public'));
+
+// // passport middleware
+// //var app = express();
+// //app.use(require('serve-static')(__dirname + '/../../public'));
+
 // const passport = require('passport');
 // const flash = require('express-flash')
 // var cookieParser = require('cookie-parser')
