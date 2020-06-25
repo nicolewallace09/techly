@@ -17,8 +17,8 @@ The user may clone this repository from GitHub. This application requires Node.j
 
 ## Usage 
 This application will allow users to sign up if they are not a member, then once they are logged in they are able to view their user profiles, add new posts, and comment on other developers post.<br>
-Please view the site hosted on the Heroku platform [https://techly.herokuapp.com/]().<br>
-<img src="">
+Please view the site hosted on the Heroku platform 
+https://techly.herokuapp.com/
 
 ## License 
 This project is license under MIT
