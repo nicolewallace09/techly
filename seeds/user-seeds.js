@@ -2,28 +2,44 @@ const { User } = require('../models');
 
 const userData = [
     {
-        "username": "katarinat",
-        "email": "kat@gmail.com",
+        "username": "datapirate",
+        "email": "matt@gmail.com",
         "password": "pass123",
-        "github": "github.com/katarina",
-        "linkedin": "linkedin.com/katarina",
-        "bio": "UC Berkeley Coding Bootcamp student"
+        "github": "github.com/datapirate",
+        "linkedin": "linkedin.com/matt",
+        "bio": "UC Berkeley Coding Bootcamp student, aspiring to be a web developer!"
     },
     {
-        "username": "davids",
-        "email": "daivd@gmail.com",
+        "username": "codebreaker",
+        "email": "abby@gmail.com",
         "password": "pass456",
-        "github": "github.com/david",
-        "linkedin": "linkedin.com/david",
-        "bio": "UC Berkeley Coding Bootcamp student"
+        "github": "github.com/abbyb",
+        "linkedin": "linkedin.com/abbyb",
+        "bio": "Entry level web developer specializing in JavaScript. Looking to network with other beginner devs!"
     },
     {
-        "username": "nicolew",
-        "email": "nicole@gmail.com",
+        "username": "infiniteloop",
+        "email": "eddie@gmail.com",
         "password": "pass789",
-        "github": "github.com/nicole",
-        "linkedin": "linkedin.com/nicole",
-        "bio": "UC Berkeley Coding Bootcamp student"
+        "github": "github.com/infiniteloop",
+        "linkedin": "linkedin.com/eddie",
+        "bio": "Based in the SF Bay Area. Undergrad in CS."
+    },
+    {
+        "username": "johndoe",
+        "email": "john@gmail.com",
+        "password": "pass789",
+        "github": "github.com/johnDoe",
+        "linkedin": "linkedin.com/john",
+        "bio": "Into all things dev. Let's connect!"
+    },
+    {
+        "username": "eddieg",
+        "email": "eddie@gmail.com",
+        "password": "pass789",
+        "github": "github.com/eddg",
+        "linkedin": "linkedin.com/eddieg",
+        "bio": "Newly graduated coding boot camp alumni. Looking for my next big opportunity!"
     }
 ]
 
