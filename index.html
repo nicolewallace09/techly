@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Sample</title>
+    <link rel="stylesheet" href="searchStyle.css" />
+</head>
+<body>
+
+<!-- search  -->   
+
+<input type="text" id="searchInput" onkeyup="SearchFunction()" placeholder="search by post info">
+
+<ul id="myUL">
+  <li><a href="#">Post1 etc</a></li>
+  <li><a href="#">Post2</a></li>
+
+  <li><a href="#">Post3</a></li>
+  <li><a href="#">Post4</a></li>
+
+  <li><a href="#">Post5</a></li>
+  <li><a href="#">Post6</a></li>
+  <li><a href="#">Post7</a></li>
+
+</ul>
+    
+
+<script>
+    function SearchFunction() {
+      var input, filter, ul, li, a, i, txtValue;
+      input = document.getElementById('searchInput');
+      filter = input.value.toUpperCase();
+      ul = document.getElementById("myUL");
+      li = ul.getElementsByTagName('li');
+    
+     for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        textVal = a.textContent || a.innerText;
+        if (textVal.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+        } else {
+          li[i].style.display = "none";
+        }
+      }
+    }
+    </script>
+</body>
+</html>
