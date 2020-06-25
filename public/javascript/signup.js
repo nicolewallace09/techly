@@ -9,6 +9,8 @@ async function signupFormHandler(event) {
     const linkedin = document.querySelector('#github-signup').value.trim();
     const bio = document.querySelector('#bio-signup').value.trim();
 
+    //const urlRegex = new RegExp(/(https:\/\/|http:\/\/)?(www\.)?.+\..+/)
+    //urlRegex
     if (username && email && password) {
         const response = await fetch('/api/users', {
           method: 'post',

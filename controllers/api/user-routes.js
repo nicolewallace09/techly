@@ -29,14 +29,14 @@ router.get('/:id', (req, res) => {
             model: Post,
             attributes: ['id', /*'title',*/ 'post_text', 'created_at']
           },
-          // include the Comment model here:
+        //   // include the Comment model here:
           {
             model: Comment,
             attributes: ['id', 'comment_text', 'created_at'],
-            include: {
+            //include: {
               /*model: Post,
               attributes: ['title']*/
-            }
+            //}
           },
           {
             model: Post,
@@ -44,7 +44,7 @@ router.get('/:id', (req, res) => {
             through: Vote,
             as: 'voted_posts'
           }
-        ]
+       ]
       })
         .then(dbUserData => {
             if (!dbUserData) {
