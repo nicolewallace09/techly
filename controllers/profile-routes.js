@@ -40,12 +40,12 @@ Post.findAll({
           attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
           include: {
             model: User,
-            attributes: ['username']
+            attributes: ['username','id']
           }
         },
         {
           model: User,
-          attributes: ['username', 'email', 'github', 'linkedin', 'bio']
+          attributes: ['username', 'email', 'github', 'linkedin', 'bio', 'id']
         }
       ]
     }) ])
@@ -65,6 +65,22 @@ Post.findAll({
 
 
 router.get('/:id', withAuth, (req, res) => {
+    Promise.all ([
+    
+      User.findOne({
+        where: {
+          id: req.params.id
+        },
+        attributes: [
+          'username',
+          'email',
+          'github',
+          'linkedin',
+          'bio'
+        ],
+      }),
+
+
     Post.findOne({
     where: {
     id: req.params.id
@@ -78,7 +94,7 @@ router.get('/:id', withAuth, (req, res) => {
     include: [
     {
         model: User,
-        attributes: ['username']
+        attributes: ['username', 'id']
     },
     {
         model: Comment,
@@ -89,10 +105,12 @@ router.get('/:id', withAuth, (req, res) => {
         }
     }
     ]
-    })
-    .then(dbPostData => {
-      const post = dbPostData.get({ plain: true });
-      res.render('profile', { post , loggedIn: true }); 
+    }) ])
+    .then(arrData => {
+      const user = arrData[0].map(user => user.get({ plain: true }));
+      const post = arrData[1].map(post => post.get({ plain: true }));
+      //const post = dbPostData.get({ plain: true });
+      res.render('profile/id', { post, user,  loggedIn: true }); 
     })
     .catch(err => {
       console.log(err);

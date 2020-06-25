@@ -1,3 +1,20 @@
+
+<div class="card-container bg-dark" id="profile-card-container">
+  
+  <div class="card bg-dark" id="profile-card">
+    <div class="card-body bg-dark" id="profile-card-body">
+      <h4 class="card-title bg-dark" id="profile-card-username">{{ username }}</h4>
+      <p class="card-text bg-dark" id="profile-card-bio">{{ bio }}</p>
+      <a href="#" class="card-link bg-dark" id="profile-card-email">Email: {{ email }}</a>
+      <a href="#" class="card-link bg-dark" id="profile-card-linkedin">LinkedIn: {{ linkedin }}</a>
+      <a href="#" class="card-link bg-dark" id="profile-card-github">Github: {{ github }}</a>
+    </div>
+  </div>
+
+</div>
+
+
+
 <article class="post">
     <div class="post-container">
         <div class="row">
@@ -16,7 +33,7 @@
 
                 {{!-- Post Text --}} 
                 <div class="text">
-                    {{post_text}}
+                    {{user.post.post_text}}
                 </div>
 
                 {{!-- Likes --}} 
@@ -26,7 +43,7 @@
                     <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
                     </svg>
                     {{!-- Comment Count  --}} 
-                    {{comments.length}} {{format_plural "Comment" comments.length}} 
+                    {{user.comments.length}} {{format_plural "Comment" user.comments.length}} 
                     <svg class="bi bi-dot" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
                     </svg>
@@ -61,9 +78,3 @@
         </div>
     </div>
 </article>
-
-
-
-
-
-

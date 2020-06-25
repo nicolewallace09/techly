@@ -170,4 +170,16 @@ router.delete('/:id', withAuth, (req,res)=>{
 });
 
 
+// this is starter code to only show five posts at a time (still testing this)
+router.get('/test/:pg', async ({params:{pg}},res)=>{
+    const lower = (pg-1)*5;
+    const data = await Post.findAll({
+        order:[["id", "DESC"]],
+        offset:lower,
+        limit:5
+    });
+    console.log(data)
+} )
+
+
 module.exports = router;

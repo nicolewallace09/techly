@@ -1,1 +1,25 @@
-In progress
+{{!-- Using the same partials as the profile.handlebars page since the "look and feel" should be exactly the same.  The change is that we are changing users. --}}
+
+
+{{#each users}}
+  {{> profile-card}}
+{{/each}}
+
+
+{{#if posts.length}}
+<section>
+  <div id="profile-header-container">
+    <h2 class="text-warning" id="profile-header">Your Posts</h2>
+  </div>
+  
+  <div>
+    <ol class="profile-list">
+      {{#each posts}}
+      <li>
+        {{> post-info}}
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>
+{{/if}}
