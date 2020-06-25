@@ -1,27 +1,28 @@
 async function searchFormHandler(event) {
   event.preventDefault();
 
-  // const search = document.querySelector('#search-input').value.trim();
-  const post_text = document.querySelector('input[name="search-input"]').value;
-  
+// -- declare search
+// -- reference from main.handlebar:  id="search-input" name="search-text"
+const search = document.querySelector('input[name="search-text"]').value;
   // console.log(search);
 
-  // const response = await fetch(`/api/search`, {
-const response = await fetch(`/search`, {
-        method: 'GET',
-        body: JSON.stringify({
-          // title,
-          post_text
-        }),
-          headers: { 'Content-Type': 'application/json'  }
-    });
+if (search) {
+const response = await fetch('/search', {
+        method: 'get',
+        // body: JSON.stringify({
+        //     search
+        // }),
+        headers: { 'Content-Type': 'application/json' }
+  }); 
 
     if (response.ok) {
-        document.location.replace('/');
+        document.location.replace('/search');
     } else {
         alert(response.statusText);
     }
+  }
 }
 
 
-document.querySelector('#search-form').addEventListener('submit', newFormHandler);
+// document.querySelector('.search-form').addEventListener('submit', searchFormHandler);
+document.querySelector('#search-form').addEventListener('submit', searchFormHandler);
