@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const { User, Post, Vote, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
+const passport = require('passport');
+
+
 
 // GET /api/users
 // http://localhost:3001/api/users
@@ -163,6 +166,23 @@ router.delete('/:id', /*withAuth,*/ (req, res) => {
             res.status(500).json(err);
         });
 });
+
+
+router.post('/login/test', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true  
+    
+}))
+    
+    
+    
+    
+    
+    
+    
+    
+
 
 module.exports = router;
 
