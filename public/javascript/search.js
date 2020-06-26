@@ -7,16 +7,14 @@ const search = document.querySelector('input[name="search-text"]').value;
   // console.log(search);
 
 if (search) {
-const response = await fetch('/search', {
+const response = await fetch( `/search/${search}` , {
         method: 'get',
-        // body: JSON.stringify({
-        //     search
-        // }),
         headers: { 'Content-Type': 'application/json' }
   }); 
 
     if (response.ok) {
-        document.location.replace('/search');
+        document.location.replace(`/search/${search}`);
+        // document.location.reload(`/search/${search}`);
     } else {
         alert(response.statusText);
     }
