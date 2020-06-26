@@ -9,9 +9,6 @@ const search = document.querySelector('input[name="search-text"]').value;
 if (search) {
 const response = await fetch( `/search/${search}` , {
         method: 'get',
-        // body: JSON.stringify({
-        //     search
-        // }),
         headers: { 'Content-Type': 'application/json' }
   }); 
 
