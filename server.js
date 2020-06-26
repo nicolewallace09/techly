@@ -23,7 +23,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sess = {
   secret: 'project2 super secret',
-  cookie: { maxAge: 60000},
+  cookie: {},
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
@@ -43,40 +43,30 @@ app.set('view engine', 'handlebars');
 // turn on routes
 app.use(routes);
 
-// passport middleware
-//var app = express();
-//app.use(require('serve-static')(__dirname + '/../../public'));
-//const passport = require('passport');
-const flash = require('express-flash')
-//var cookieParser = require('cookie-parser')
+
+// // passport middleware
+// //var app = express();
+// //app.use(require('serve-static')(__dirname + '/../../public'));
+
+// const passport = require('passport');
+// const flash = require('express-flash')
+// var cookieParser = require('cookie-parser')
 
 
-
-//const initializePassport = require('./passport-config')
+// const initializePassport = require('/passport-config');
 
 // initializePassport(
 //   passport, 
-//   email => users.find(user => user.email === email),
-//   id => users.find(id => user.id === id)
+//   email => users.find(user => user.email === email)
 // );
-//app.use(require('cookie-parser')());
-//app.use(require('body-parser').urlencoded({ extended: true }));
+// app.use(require('cookie-parser')());
+// app.use(require('body-parser').urlencoded({ extended: true }));
 
 
-app.use(flash())
-app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
-
-
-
-//For BodyParser
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-
-// For Passport
-app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true})); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+// app.use(flash())
+// app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 
 // turn on connection to db and server
