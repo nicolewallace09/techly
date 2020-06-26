@@ -81,6 +81,5 @@ app.use(passport.session()); // persistent login sessions
 
 // turn on connection to db and server
 sequelize.sync({ force: false }).then(() => {    // true will recrete the tables, set back to false after creating
-  app.listen(PORT, () => console.log('Now listening'));
+  app.listen(PORT, () => console.log('Now listening on port ' + PORT));
 });
-
