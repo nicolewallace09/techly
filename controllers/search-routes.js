@@ -61,7 +61,7 @@ router.get('/:post_text', (req, res) => {
         ],        
       })    
       .then(dbSearchData => {
-          console.log(dbSearchData);
+          console.log('search data', dbSearchData);
         if (!dbSearchData) {
           res.status(404).json({ message: 'No post found with this search criteria' });
           return;

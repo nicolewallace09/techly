@@ -2,9 +2,7 @@ const express = require('express');
 const routes = require('./controllers');
 const sequelize = require('./config/connection');
 const path = require('path');
-var passport   = require('passport')
-const bodyParser = require('body-parser')
-//const env = require('dotenv').load()
+
 
 // helper function
 const helpers = require('./utils/helpers');
@@ -31,6 +29,7 @@ const sess = {
   })
 };
 
+
 app.use(session(sess));
 
 app.use(express.json());
@@ -44,29 +43,81 @@ app.set('view engine', 'handlebars');
 app.use(routes);
 
 
-// // passport middleware
-// //var app = express();
-// //app.use(require('serve-static')(__dirname + '/../../public'));
+/************ PASSPORT *********************************************/
 
-// const passport = require('passport');
-// const flash = require('express-flash')
-// var cookieParser = require('cookie-parser')
+var express = require('express') // redundant
+var app = express() // redundant
+var passport = require('passport')
+var session = require('express-session') // redundant
+var bodyParser = require('body-parser')  // don't believe I need this anymore
+var env = require('dotenv').config()  // this is in ./config/connection.js
+var exphbs = require('express-handlebars') // redundant
+ 
+ 
+//For BodyParser
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
+ 
+// For Passport
+app.use(session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+})); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+ 
+//For Handlebars (not using; already set above)
+/*
+app.set('views', './app/views')
+app.engine('hbs', exphbs({
+    extname: '.hbs'
+}));
+app.set('view engine', '.hbs');
+*/ 
+
+// not using since homepage route exists
+/*
+app.get('/', function(req, res) {
+    res.send('Welcome to Passport with Sequelize');
+});
+*/
+
+//Models
+var models = require("./models");
+ 
+//Routes
+var authRoute = require('./utils/auth.js')(app); // I don't think I am passing in the correct "app"
+ 
+ 
+//load passport strategies
+require('./public/javascript/passport.js')(passport, models.user);
+ 
+ 
+//Sync Database (not using; have similar code at bottom of page)
+/*
+models.sequelize.sync().then(function() {
+    console.log('Nice! Database looks fine')
+}).catch(function(err) {
+    console.log(err, "Something went wrong with the Database Update!")
+});
+ 
+app.listen(5000, function(err) {
+    if (!err)
+        console.log("Site is live");
+    else console.log(err)
+});
+*/
 
 
-// const initializePassport = require('/passport-config');
-
-// initializePassport(
-//   passport, 
-//   email => users.find(user => user.email === email)
-// );
-// app.use(require('cookie-parser')());
-// app.use(require('body-parser').urlencoded({ extended: true }));
 
 
-// app.use(flash())
-// app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
-// app.use(passport.initialize());
-// app.use(passport.session());
+
+
+
+
 
 
 // turn on connection to db and server

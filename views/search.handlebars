@@ -1,19 +1,29 @@
 
-<ol class="post-list">
+{{!-- <ol class="post-list">
 <!-- posts array -->
-{{#each posts as |post|}}
+{{#each posts}}
   <ul>
-      {{> post-info post }} 
+      {{> post-info }} 
     </div>
   </ul>
 {{/each}}
-</ol>
+</ol> --}}
+
+<div>
+    <ol class="profile-list">
+      {{#each posts}}
+      <li>
+        {{> post-info}}
+      </li>
+      {{/each}}
+    </ol>
+  </div>
 
 
 
 
 
 {{!-- <script src="/javascript/add-post.js"></script> --}}
-<script src="/javascript/search.js"></script>
+{{!-- <script src="/javascript/search.js"></script> --}}
 
 
