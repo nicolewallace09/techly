@@ -2,6 +2,9 @@ const express = require('express');
 const routes = require('./controllers');
 const sequelize = require('./config/connection');
 const path = require('path');
+const passport = require('passport');
+
+
 
 
 // helper function
@@ -22,7 +25,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const sess = {
   secret: 'project2 super secret',
   cookie: {},
-  resave: false,
+  resave: false, // passport example is set to true, but leaving false for now
   saveUninitialized: true,
   store: new SequelizeStore({
     db: sequelize
@@ -42,25 +45,29 @@ app.set('view engine', 'handlebars');
 // turn on routes
 app.use(routes);
 
-
+app.use(passport.session());
+app.use(passport.initialize());
 /************ PASSPORT *********************************************/
 
-var express = require('express') // redundant
-var app = express() // redundant
-var passport = require('passport')
-var session = require('express-session') // redundant
-var bodyParser = require('body-parser')  // don't believe I need this anymore
-var env = require('dotenv').config()  // this is in ./config/connection.js
-var exphbs = require('express-handlebars') // redundant
+//var express = require('express') // redundant
+//var app = express() // redundant
+//var passport = require('passport')
+//var session = require('express-session') // redundant
+//var bodyParser = require('body-parser')  // don't believe I need this anymore because we are using expresss version 4.14.1
+//var env = require('dotenv').config()  // this is in ./config/connection.js
+//var exphbs = require('express-handlebars') // redundant
  
  
-//For BodyParser
+//For BodyParser (beginning with express version 4.16.1 they have an internal body parser that should work with passport)
+/*
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
- 
-// For Passport
+*/ 
+
+// For Passport (redundant)
+/*
 app.use(session({
     secret: 'keyboard cat',
     resave: true,
@@ -68,7 +75,8 @@ app.use(session({
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
- 
+*/ 
+
 //For Handlebars (not using; already set above)
 /*
 app.set('views', './app/views')
@@ -86,14 +94,16 @@ app.get('/', function(req, res) {
 */
 
 //Models
-var models = require("./models");
+//var models = require("./models"); // is this picked up already elsewhere
+//const router = require('./controllers/profile-routes');
+//const router = require('express').Router();
  
 //Routes
-var authRoute = require('./utils/auth.js')(app); // I don't think I am passing in the correct "app"
+//var authRoute = require('./controllers/auth.js')//(router); // I don't think I am passing in the correct "app"
  
  
 //load passport strategies
-require('./public/javascript/passport.js')(passport, models.user);
+//require('./public/javascript/passport.js')(passport);
  
  
 //Sync Database (not using; have similar code at bottom of page)

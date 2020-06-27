@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { User, Post, Vote, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
-const passport = require('passport');
+const isAuth = require('../../utils/middleware/isAuth');
+const passport = require('../../utils/passport');
 
 
 
@@ -85,6 +86,9 @@ router.post('/', (req, res) => {
     });
 });
 
+
+/*
+// comment out for development
 // LOGIN
 router.post('/login', (req, res) => {
     User.findOne({
@@ -113,6 +117,15 @@ router.post('/login', (req, res) => {
         });
     });
 });
+*/
+
+
+router.post('/login', passport.authenticate('local'), function(req, res) {
+    res.render('homepage', {
+        loggedIn: req.session.passport.user.id
+    });
+});
+
 
 // LOGOUT
 router.post('/logout', (req, res) => {
@@ -166,22 +179,6 @@ router.delete('/:id', /*withAuth,*/ (req, res) => {
             res.status(500).json(err);
         });
 });
-
-
-router.post('/login/test', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true  
-    
-}))
-    
-    
-    
-    
-    
-    
-    
-    
 
 
 module.exports = router;
