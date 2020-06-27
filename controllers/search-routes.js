@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
+const { Op } = require('sequelize');
+
 // const withAuth = require('../utils/auth');   // -- search doesn't require login.
 
 // -- initial test route
@@ -43,30 +45,36 @@ const { Post, User, Comment } = require('../models');
 
 
 // // // -- get all posts; GET "/api/posts"
-// router.get('/:post_text', (req, res) => {
-//     Post.findOne({
-//       where: {
-//         post_text: req.params.post_text
-//       },
-//         attributes: [
-//             'id', 
-//             'post_text', 
-//             // [sequelize.literal('(SELECT * FROM post WHERE post_text LIKE `%?%`)'), 'post_text'],
-//             'created_at'
-//         ],        
-//       })    
-//       .then(dbSearchData => {
-//         if (!dbSearchData) {
-//           res.status(404).json({ message: 'No post found with this search criteria' });
-//           return;
-//         }
-//         res.json(dbSearchData);
-//       })
-//       .catch(err => {
-//         console.log(err);
-//         res.status(500).json(err);
-//       });
-// });
+router.get('/:post_text', (req, res) => {
+    Post.findOne({
+      limit: 10,
+      where: {
+        post_text: {
+          [Op.like]: '%' + req.params.post_text + '%'
+        }
+      },
+        attributes: [
+            'id', 
+            'post_text',
+            // [sequelize.literal('(SELECT * FROM post WHERE post_text LIKE `Heroku`)'), 'post_text'],
+            'created_at'
+        ],        
+      })    
+      .then(dbSearchData => {
+          console.log(dbSearchData);
+        if (!dbSearchData) {
+          res.status(404).json({ message: 'No post found with this search criteria' });
+          return;
+        }
+        // res.json(dbSearchData);
+        const posts = dbSearchData;
+        res.render('search', { posts }); 
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+});
 
 // // // -- get all posts; GET "/api/posts"
 // router.get('/', (req, res) => {

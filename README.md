@@ -20,7 +20,6 @@ This application will allow users to sign up if they are not a member, then once
 Please view the site hosted on the Heroku platform - [Techly](https://techly.herokuapp.com/).<br>
 <img src="assets/images/screenshot.png">
 
-
 ## License 
 This project is license under MIT
 
