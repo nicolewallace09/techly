@@ -7,18 +7,39 @@ const { Op } = require('sequelize');
 // -- search sample for Insomnia  GET http://localhost:3001/search/heroku
 router.get('/:post_text', (req, res) => {
     Post.findOne({
-      limit: 10,
+      // limit: 10,
       where: {
         post_text: {
           [Op.like]: '%' + req.params.post_text + '%'
-        }
+        },
       },
-        attributes: [
+        attributes: [ 
             'id', 
             'post_text',
+            // ,
             // [sequelize.literal('(SELECT * FROM post WHERE post_text LIKE `Heroku`)'), 'post_text'],
+            [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count'],
             'created_at'
-        ],        
+        ]
+        ,
+        include: [
+          {
+            model: Comment,
+            attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+            include: {
+              model: User,
+              attributes: ['username','id']
+            }
+          },
+          {
+            model: User,
+            attributes: ['username', 'email', 'github', 'linkedin', 'bio', 'id']
+          }
+        ]
+        // ,    
+        // exclude: [
+        //   { exclude: ['null'] }    
+        // ]    
       })    
       .then(dbSearchData => {
           console.log(dbSearchData);
