@@ -61,8 +61,7 @@ router.get('/', passportAuth,(req, res) => {
             loginStatus =  req.session.passport.user;
           } else {
               loginStatus = false;
-          }
-          console.log(loginStatus);
+          }         
 
         //serialize data before passing to template
         const users = arrData[0].map(user => user.get({ plain: true }));
