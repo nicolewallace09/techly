@@ -1,5 +1,6 @@
 const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
+const { session } = require('passport');
 const router = require('express').Router();
 
 // rendering all posts to homepage
@@ -38,7 +39,8 @@ router.get('/', (req, res) => {
           
           let loginStatus;
           if (typeof req.session.passport != 'undefined') {
-            loginStatus =  req.session.passport.user.id;
+            loginStatus = req.session.passport.user;
+            console.log('loginStatus', loginStatus);
           } else {
               loginStatus = false;
           }
@@ -49,7 +51,7 @@ router.get('/', (req, res) => {
 
           // replacing loggedIn: req.session.loggedIn with loggedIn: loginStatus
 
-          res.render('homepage', { posts, loggedIn: loginStatus }
+          res.render('homepage', { posts,  loggedIn: loginStatus /*loggedIn: req.session.passport*/ }
           //{ posts, loggedIn: req.session.loggedIn }
           );
         })

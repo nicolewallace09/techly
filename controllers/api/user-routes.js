@@ -3,6 +3,7 @@ const { User, Post, Vote, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 const passportAuth = require('../../utils/auth');
 const passport = require('../../utils/passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 
 
@@ -142,6 +143,18 @@ router.post('/logout', (req, res) => {
 
 // Logout that works with Passport
 
+router.post('/logout', function(req, res,) {
+    req.logout();
+    console.log('i did not break')
+    res.redirect('/');
+    console.log('did i redirect')
+  });
+
+
+
+
+
+
 /*
 router.get('/logout', (req, res) => {
     req.session.destroy((err) => {
@@ -154,15 +167,15 @@ router.get('/logout', (req, res) => {
 
 
 
-router.get('/logout', (req, res) => {
-        if (req.session.passport.user.id != null) {
-            req.session.destroy(() => {
-                res.status(204).end();
-            });
-        } else {
-            res.status(404).end();
-        }
-});
+// router.get('/logout', (req, res) => {
+//         if (req.session.passport.user.id != null) {
+//             req.session.destroy(() => {
+//                 res.status(204).end();
+//             });
+//         } else {
+//             res.status(404).end();
+//         }
+// });
 
 
 // PUT /api/users/1 - similar to UPDATE 
