@@ -1,10 +1,8 @@
 const router = require('express').Router();
 const { User, Post, Vote, Comment } = require('../../models');
-const withAuth = require('../../utils/auth');
 const passportAuth = require('../../utils/auth');
 const passport = require('../../utils/passport');
 const LocalStrategy = require('passport-local').Strategy;
-
 
 
 // GET /api/users
@@ -71,15 +69,10 @@ router.post('/', (req, res) => {
         linkedin: req.body.linkedin,
         bio: req.body.bio
     })
-    // store user data during session 
+    // prior to passport, we store to session, but with passport we must login to enable package
     .then(dbUserData => {
-    req.session.save(() => {
-        req.session.user_id = dbUserData.id;
-        req.session.username = dbUserData.username;
-        req.session.loggedIn = true;
-        res.json(dbUserData);
+        res.redirect('/login')      
         });
-    });
 });
 
 

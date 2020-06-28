@@ -6,7 +6,7 @@ async function signupFormHandler(event) {
     const email = document.querySelector('#email-signup').value.trim();
     const password = document.querySelector('#password-signup').value.trim();
     const github = document.querySelector('#github-signup').value.trim();
-    const linkedin = document.querySelector('#github-signup').value.trim();
+    const linkedin = document.querySelector('#linkedin-signup').value.trim();
     const bio = document.querySelector('#bio-signup').value.trim();
 
     
@@ -25,7 +25,8 @@ async function signupFormHandler(event) {
         }); 
     // check the response status
     if (response.ok) {
-        document.location.replace('/');
+        console.log('Log in success!');
+        document.location.replace('/login');
       } else {
         alert(response.statusText);
       }

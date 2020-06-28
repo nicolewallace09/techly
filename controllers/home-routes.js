@@ -107,18 +107,13 @@ router.get('/post/:id', (req, res) => {
         // serialize the data
         const post = dbPostData.get({ plain: true });
   
-        
+        // defining log-in status
         let loginStatus;
           if (typeof req.session.passport != 'undefined') {
             loginStatus =  req.session.passport.user;
           } else {
               loginStatus = false;
-          }
-          
-        
-        
-        
-        
+          }   
         
         // pass data to template
         res.render('single-post', { post, loggedIn: loginStatus });
@@ -142,15 +137,12 @@ router.get('/profile/:id', (req, res) => {
       include: [
         {
           model: Post,
-          attributes: ['id', /*'title',*/ 'post_text', 'created_at']
+          attributes: ['id', 'post_text', 'created_at']
         },
-        // include the Comment model here:
         {
           model: Comment,
           attributes: ['id', 'comment_text', 'created_at'],
           include: {
-            /*model: Post,
-            attributes: ['title']*/
           }
         },
         {
@@ -167,24 +159,19 @@ router.get('/profile/:id', (req, res) => {
               return;
           }
              
-          
+          // defining log-in status
           let loginStatus;
           if (typeof req.session.passport != 'undefined') {
             loginStatus =  req.session.passport.user;
           } else {
               loginStatus = false;
           }
-          console.log(loginStatus);
-          
-          
-          
-          
-          
-            // serialize the data
-            const user = { username: username, github: github, linkedin: linkedin}
+           
+          // serialize the data
+          const user = { username: username, github: github, linkedin: linkedin}
 
-            // pass data to template
-            res.render('single-profile', { user, loggedIn: loginStatus });
+          // pass data to template
+          res.render('single-profile', { user, loggedIn: loginStatus });
     
       })
       .catch(err => {

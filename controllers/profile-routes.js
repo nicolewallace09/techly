@@ -95,7 +95,6 @@ router.get('/:id', passportAuth, (req, res) => {
         ],
       }),
 
-
     Post.findOne({
     where: {
     id: req.params.id

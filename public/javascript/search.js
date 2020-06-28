@@ -4,8 +4,7 @@ async function searchFormHandler(event) {
 // -- declare search
 // -- reference from main.handlebar:  id="search-input" name="search-text"
 const search = document.querySelector('input[name="search-text"]').value;
-  // console.log(search);
-
+  
 if (search) {
 const response = await fetch( `/search/${search}` , {
         method: 'get',

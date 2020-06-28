@@ -7,9 +7,7 @@ const { User } = require('../models');
 // http://www.passportjs.org/docs/configure/
 // https://levelup.gitconnected.com/everything-you-need-to-know-about-the-passport-local-passport-js-strategy-633bbab6195
 
-
 passport.use(new LocalStrategy(
-
   {
     usernameField: 'email',
     passwordField: 'password',
@@ -19,7 +17,6 @@ passport.use(new LocalStrategy(
   async function(req, email, password, done) {
     let user = await User.findOne({
       where: {
-        //username: username
         email: email
       }
     });

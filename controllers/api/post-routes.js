@@ -90,7 +90,7 @@ router.get('/:id', (req,res)=>{
 
 // create a post; POST /api/posts
 router.post('/', passportAuth, (req,res)=>{
-    //expects {title, post_text, user_id}
+    //expects {post_text, user_id}
     Post.create({
         post_text: req.body.post_text,
         user_id: req.session.passport.user.id
@@ -107,7 +107,7 @@ router.post('/', passportAuth, (req,res)=>{
 router.put('/upvote', passportAuth, (req, res) => {
     // make sure the session exists first
     if (req.session.passport) {
-      // pass session id along with all destructured properties on req.body
+      // pass session.passport id along with all destructured properties on req.body
       Post.upvote({ ...req.body, user_id: req.session.passport.user.id }, { Vote, Comment, User })
         .then(updatedVoteData => res.json(updatedVoteData))
         .catch(err => {
@@ -163,18 +163,6 @@ router.delete('/:id', passportAuth, (req,res)=>{
         res.status(500).json(err);
     });
 });
-
-
-// this is starter code to only show five posts at a time (still testing this)
-router.get('/test/:pg', async ({params:{pg}},res)=>{
-    const lower = (pg-1)*5;
-    const data = await Post.findAll({
-        order:[["id", "DESC"]],
-        offset:lower,
-        limit:5
-    });
-    console.log(data)
-} )
 
 
 module.exports = router;

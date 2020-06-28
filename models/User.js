@@ -42,27 +42,20 @@ User.init(
             len: [4]
         }
     },
+    // define a github column
     github: {
         type: DataTypes.STRING,
         allowNull: true,
-        // validate: {
-        //     isURL: true
-        // }
-
     },
+    // define a linkedin column
     linkedin: {
         type: DataTypes.STRING,
         allowNull: true,
-        // validate: {
-        //     isURL: true
-        // }
     },
+    // define a bio column
     bio: {
         type: DataTypes.TEXT,
         allowNull: true,
-        // validate: {
-        //     len: [4, 150]
-        // }
     }
   },
   {
