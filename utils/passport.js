@@ -3,7 +3,6 @@ const LocalStrategy = require('passport-local').Strategy;
 const { User } = require('../models');
 
 
-// documentation: http://www.passportjs.org/docs/username-password/
 console.log('I am here check 1');
 
 passport.use(new LocalStrategy(
@@ -45,13 +44,15 @@ passport.use(new LocalStrategy(
   }
 ));
 
-passport.serializeUser((user, cb) => {
+passport.serializeUser((user, done) => {
   console.log('check 5', user);
-  cb(null, user);
+  done(null, user);
+  console.log('test 6', user);
 });
 
-passport.deserializeUser((obj, cb) => {
-  cb(null, obj);
+
+passport.deserializeUser((obj, done) => {
+  done(null, obj);
 });
 
 module.exports = passport;

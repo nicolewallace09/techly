@@ -42,11 +42,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 // turn on routes
 app.use(routes);
 
-app.use(passport.session());
-app.use(passport.initialize());
 /************ PASSPORT *********************************************/
 
 //var express = require('express') // redundant

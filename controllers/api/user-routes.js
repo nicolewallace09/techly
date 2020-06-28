@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { User, Post, Vote, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
-const isAuth = require('../../utils/middleware/isAuth');
+const passportAuth = require('../../utils/auth');
 const passport = require('../../utils/passport');
 
 
@@ -121,9 +121,8 @@ router.post('/login', (req, res) => {
 
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
-    res.render('homepage', {
-        loggedIn: req.session.passport.user.id
-    });
+    res.render('homepage', 
+    {loggedIn: req.session.passport.user.id});
 });
 
 

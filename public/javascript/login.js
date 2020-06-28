@@ -15,6 +15,7 @@ async function loginFormHandler(event) {
       });
   
       if (response.ok) {
+        console.log('I am in');
         document.location.replace('/');
       } else {
         alert(response.statusText);
