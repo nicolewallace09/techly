@@ -32,16 +32,11 @@ router.get('/:id', (req, res) => {
         include: [
           {
             model: Post,
-            attributes: ['id', /*'title',*/ 'post_text', 'created_at']
+            attributes: ['id', 'post_text', 'created_at']
           },
-        //   // include the Comment model here:
           {
             model: Comment,
             attributes: ['id', 'comment_text', 'created_at'],
-            //include: {
-              /*model: Post,
-              attributes: ['title']*/
-            //}
           },
           {
             model: Post,
@@ -64,6 +59,7 @@ router.get('/:id', (req, res) => {
         });
 });
 
+
 // POST /api/users
 // http://localhost:3001/api/users
 router.post('/', (req, res) => {
@@ -81,105 +77,28 @@ router.post('/', (req, res) => {
         req.session.user_id = dbUserData.id;
         req.session.username = dbUserData.username;
         req.session.loggedIn = true;
-
         res.json(dbUserData);
         });
     });
 });
 
 
-/*
-// comment out for development
-// LOGIN
-router.post('/login', (req, res) => {
-    User.findOne({
-        where: {
-            email: req.body.email
-        }
-    }).then(dbUserData => {
-        if (!dbUserData) {
-            res.status(400).json({ message: 'No user with that email address!'});
-            return;
-        }
-        // verify user with password 
-        const validPassword = dbUserData.checkPassword(req.body.password);
-
-        if (!validPassword) {
-            res.status(400).json({ message: 'Incorrect password!' });
-            return;
-        }
-        req.session.save(() => {
-            // declare session variables
-            req.session.user_id = dbUserData.id;
-            req.session.username = dbUserData.username;
-            req.session.loggedIn = true;
-      
-            res.json({ user: dbUserData, message: 'You are now logged in!' });
-        });
-    });
-});
-*/
-
-
+// login using passport methods
 router.post('/login', passport.authenticate('local'), function(req, res) {
     res.render('homepage', 
     {loggedIn: req.session.passport.user.id});
 });
 
 
-/*
-// LOGOUT  
-router.post('/logout', (req, res) => {
-    if (req.session.loggedIn) {
-        req.session.destroy(() => {
-            res.status(204).end();
-        });
-    } else {
-        res.status(404).end();
-    }
-});
-*/
-
-
-// Logout that works with Passport
-
+// Logout using passport methods
 router.post('/logout', function(req, res,) {
     req.logout();
-    console.log('i did not break')
     res.redirect('/');
-    console.log('did i redirect')
   });
 
 
-
-
-
-
-/*
-router.get('/logout', (req, res) => {
-    req.session.destroy((err) => {
-        console.log(session);
-    })
-});
-*/
-
-
-
-
-
-// router.get('/logout', (req, res) => {
-//         if (req.session.passport.user.id != null) {
-//             req.session.destroy(() => {
-//                 res.status(204).end();
-//             });
-//         } else {
-//             res.status(404).end();
-//         }
-// });
-
-
 // PUT /api/users/1 - similar to UPDATE 
-router.put('/:id', /*withAuth,*/ (req, res) => {
+router.put('/:id', passportAuth, (req, res) => {
     User.update(req.body, {
         individualHooks: true,
         where: {
@@ -200,8 +119,9 @@ router.put('/:id', /*withAuth,*/ (req, res) => {
 
 });
 
+
 // DELETE /api/users/1
-router.delete('/:id', /*withAuth,*/ (req, res) => {
+router.delete('/:id', passportAuth, (req, res) => {
     User.destroy({
         where: {
             id: req.params.id

@@ -14,13 +14,10 @@ const response = await fetch( `/search/${search}` , {
 
     if (response.ok) {
         document.location.replace(`/search/${search}`);
-        // document.location.reload(`/search/${search}`);
     } else {
         alert(response.statusText);
     }
   }
 }
 
-
-// document.querySelector('.search-form').addEventListener('submit', searchFormHandler);
 document.querySelector('#search-form').addEventListener('submit', searchFormHandler);

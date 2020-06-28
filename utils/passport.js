@@ -3,6 +3,10 @@ const LocalStrategy = require('passport-local').Strategy;
 const { User } = require('../models');
 
 
+// resources used for Passport coding
+// http://www.passportjs.org/docs/configure/
+// https://levelup.gitconnected.com/everything-you-need-to-know-about-the-passport-local-passport-js-strategy-633bbab6195
+
 
 passport.use(new LocalStrategy(
 
@@ -13,59 +17,37 @@ passport.use(new LocalStrategy(
   },
   
   async function(req, email, password, done) {
-
-    console.log('check 2', email, password);
-
-    let dbUser = await User.findOne({
+    let user = await User.findOne({
       where: {
         //username: username
         email: email
       }
     });
 
-    console.log('check 3', dbUser);
-
-    let result;
-    if (dbUser != null) {
-      result = await dbUser.checkPassword(password);
+    let verify;
+    if (user != null) {
+      verify = await user.checkPassword(password);
     }
 
-    console.log('check 4', result);
-
-    if (!dbUser) {
-      console.log('Incorrect email');
+    if (!user) {
       return done(null, false, { message: 'Incorrect email!' });
-    } else if (!result) {
-      console.log('Incorrect password');
+    } else if (!verify) {
       return done(null, false, { message: 'Incorrect password!' });
     }
-    return done(null, dbUser)
+    return done(null, user)
   }
 ));
 
+
+// There are few different wasys to serialize / deserialize
+// Specfic example:  http://www.passportjs.org/docs/configure/
+
 passport.serializeUser((user, done) => {
-  console.log('check 5', user);
   done(null, user);
-  console.log('test 6', user);
 });
 
-
-
-// passport.deserializeUser(function(id, done) {
-//   User.findById(id, function(err, user) {
-//     done(err, user);
-//   });
-// });
-
-
-// passport.deserializeUser((id, done) => {
-//   done(null, id);
-//  });
-
-
-
-passport.deserializeUser((obj, done) => {
- done(null, obj);
+passport.deserializeUser((user, done) => {
+ done(null, user);
 });
 
 module.exports = passport;
