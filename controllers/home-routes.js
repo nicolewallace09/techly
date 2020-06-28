@@ -34,9 +34,8 @@ router.get('/', (req, res) => {
         .then(dbPostData => {
           // pass a single post object into the homepage template
           const posts = dbPostData.map(post => post.get({ plain: true }));
-
-
-          
+    
+          // defining log-in status
           let loginStatus;
           if (typeof req.session.passport != 'undefined') {
             loginStatus = req.session.passport.user;
@@ -44,15 +43,8 @@ router.get('/', (req, res) => {
           } else {
               loginStatus = false;
           }
-          console.log(loginStatus);
-
-
-
-
-          // replacing loggedIn: req.session.loggedIn with loggedIn: loginStatus
-
-          res.render('homepage', { posts,  loggedIn: loginStatus /*loggedIn: req.session.passport*/ }
-          //{ posts, loggedIn: req.session.loggedIn }
+          
+          res.render('homepage', { posts,  loggedIn: loginStatus }
           );
         })
         .catch(err => {
@@ -61,7 +53,6 @@ router.get('/', (req, res) => {
         });
 });
 
-// req.session.loggedIn
 
 // redirecting users to homepage once they log in
 router.get('/login', (req, res) => {
@@ -73,11 +64,11 @@ router.get('/login', (req, res) => {
 });
 
 
-
 // rendering sign up page 
 router.get('/signup', (req, res) => {
   res.render('signup');
 });
+
 
 // rendering one post to the single-post page
 router.get('/post/:id', (req, res) => {
@@ -116,18 +107,13 @@ router.get('/post/:id', (req, res) => {
         // serialize the data
         const post = dbPostData.get({ plain: true });
   
-        
+        // defining log-in status
         let loginStatus;
           if (typeof req.session.passport != 'undefined') {
             loginStatus =  req.session.passport.user;
           } else {
               loginStatus = false;
-          }
-          
-        
-        
-        
-        
+          }   
         
         // pass data to template
         res.render('single-post', { post, loggedIn: loginStatus });
@@ -151,15 +137,12 @@ router.get('/profile/:id', (req, res) => {
       include: [
         {
           model: Post,
-          attributes: ['id', /*'title',*/ 'post_text', 'created_at']
+          attributes: ['id', 'post_text', 'created_at']
         },
-        // include the Comment model here:
         {
           model: Comment,
           attributes: ['id', 'comment_text', 'created_at'],
           include: {
-            /*model: Post,
-            attributes: ['title']*/
           }
         },
         {
@@ -176,24 +159,19 @@ router.get('/profile/:id', (req, res) => {
               return;
           }
              
-          
+          // defining log-in status
           let loginStatus;
           if (typeof req.session.passport != 'undefined') {
             loginStatus =  req.session.passport.user;
           } else {
               loginStatus = false;
           }
-          console.log(loginStatus);
-          
-          
-          
-          
-          
-            // serialize the data
-            const user = { username: username, github: github, linkedin: linkedin}
+           
+          // serialize the data
+          const user = { username: username, github: github, linkedin: linkedin}
 
-            // pass data to template
-            res.render('single-profile', { user, loggedIn: loginStatus });
+          // pass data to template
+          res.render('single-profile', { user, loggedIn: loginStatus });
     
       })
       .catch(err => {

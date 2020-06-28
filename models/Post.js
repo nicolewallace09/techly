@@ -16,7 +16,6 @@ class Post extends Model {
             attributes: [
               'id',
               'post_text',
-              // 'title',
               'created_at',
               [
                 sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'),
@@ -38,10 +37,6 @@ Post.init(
         primaryKey: true,
         autoIncrement: true
       },
-      // title: {
-      //   type: DataTypes.STRING,
-      //   allowNull: false
-      // },
       post_text: {
         type: DataTypes.STRING,
         allowNull: false,
