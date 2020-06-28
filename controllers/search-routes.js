@@ -46,7 +46,7 @@ const { Op } = require('sequelize');
 
 // // // -- get all posts; GET "/api/posts"
 router.get('/:post_text', (req, res) => {
-    Post.findOne({
+    Post.findAll({
       limit: 10,
       where: {
         post_text: {
@@ -58,7 +58,13 @@ router.get('/:post_text', (req, res) => {
             'post_text',
             // [sequelize.literal('(SELECT * FROM post WHERE post_text LIKE `Heroku`)'), 'post_text'],
             'created_at'
-        ],        
+        ],
+        include: [
+          {
+            model: User,
+            attributes: ['username', 'email', 'github', 'linkedin', 'bio', 'id']
+          }
+        ]       
       })    
       .then(dbSearchData => {
           console.log(dbSearchData);
@@ -67,7 +73,7 @@ router.get('/:post_text', (req, res) => {
           return;
         }
         // res.json(dbSearchData);
-        const posts = dbSearchData;
+        const posts = dbSearchData.map(post => post.get({ plain: true }));;
         res.render('search', { posts }); 
       })
       .catch(err => {

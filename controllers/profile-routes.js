@@ -4,7 +4,6 @@ const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 // profile displaying posts created by logged in users 
-
 router.get('/', withAuth,(req, res) => {
 Promise.all ([
   
