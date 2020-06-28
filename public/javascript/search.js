@@ -4,8 +4,7 @@ async function searchFormHandler(event) {
 // -- declare search
 // -- reference from main.handlebar:  id="search-input" name="search-text"
 const search = document.querySelector('input[name="search-text"]').value;
-  // console.log(search);
-
+  
 if (search) {
 const response = await fetch( `/search/${search}` , {
         method: 'get',
@@ -14,13 +13,10 @@ const response = await fetch( `/search/${search}` , {
 
     if (response.ok) {
         document.location.replace(`/search/${search}`);
-        // document.location.reload(`/search/${search}`);
     } else {
         alert(response.statusText);
     }
   }
 }
 
-
-// document.querySelector('.search-form').addEventListener('submit', searchFormHandler);
 document.querySelector('#search-form').addEventListener('submit', searchFormHandler);

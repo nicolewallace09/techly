@@ -7,7 +7,7 @@ const { Op } = require('sequelize');
 // -- search sample for Insomnia  GET http://localhost:3001/search/heroku
 router.get('/:post_text', (req, res) => {
     Post.findAll({
-      //limit: 10,
+      limit: 10,
       where: {
         post_text: {
           [Op.like]: '%' + req.params.post_text + '%'
@@ -16,8 +16,6 @@ router.get('/:post_text', (req, res) => {
         attributes: [ 
             'id', 
             'post_text',
-            // ,
-            // [sequelize.literal('(SELECT * FROM post WHERE post_text LIKE `Heroku`)'), 'post_text'],
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count'],
             'created_at'
         ],
@@ -43,9 +41,17 @@ router.get('/:post_text', (req, res) => {
           res.status(404).json({ message: 'No post found with this search criteria' });
           return;
         }
-        // res.json(dbSearchData);
+
+        // defining loggenIn using loginStatus
+        let loginStatus;
+          if (typeof req.session.passport != 'undefined') {
+            loginStatus =  req.session.passport.user;
+          } else {
+              loginStatus = false;
+          }         
+        
         const posts = dbSearchData.map(post => post.get({ plain: true }));;
-        res.render('search', { posts }); 
+        res.render('search', { posts, loggedIn: loginStatus }); 
       })
       .catch(err => {
         console.log(err);
