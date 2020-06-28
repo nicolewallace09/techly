@@ -64,7 +64,7 @@ Post.findAll({
       
 
 
-router.get('/:id', withAuth, (req, res) => {
+router.get('/:id', /*withAuth,*/ (req, res) => {
     Promise.all ([
     
       User.findOne({
@@ -107,10 +107,13 @@ router.get('/:id', withAuth, (req, res) => {
     ]
     }) ])
     .then(arrData => {
+      
+      
+      
       const user = arrData[0].map(user => user.get({ plain: true }));
       const post = arrData[1].map(post => post.get({ plain: true }));
       //const post = dbPostData.get({ plain: true });
-      res.render('profile/id', { post, user,  loggedIn: true }); 
+      res.render('profile/id', { post, user, loggedIn: true }); 
     })
     .catch(err => {
       console.log(err);

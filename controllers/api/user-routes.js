@@ -126,7 +126,8 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 });
 
 
-// LOGOUT
+/*
+// LOGOUT  
 router.post('/logout', (req, res) => {
     if (req.session.loggedIn) {
         req.session.destroy(() => {
@@ -136,6 +137,24 @@ router.post('/logout', (req, res) => {
         res.status(404).end();
     }
 });
+*/
+
+
+// Logout that works with Passport
+router.get('/logout', (req, res) => {
+
+    req.session.destroy((err) => {
+
+        if (req.session.passport.user.id != null) {
+            req.session.destroy(() => {
+                res.status(204).end();
+            });
+        } else {
+            res.status(404).end();
+        }
+    });
+});
+
 
 // PUT /api/users/1 - similar to UPDATE 
 router.put('/:id', /*withAuth,*/ (req, res) => {

@@ -114,8 +114,21 @@ router.get('/post/:id', (req, res) => {
         // serialize the data
         const post = dbPostData.get({ plain: true });
   
+        
+        // let loginStatus;
+        //   if (typeof req.session.passport != 'undefined') {
+        //     loginStatus =  req.session.passport.user.id;
+        //   } else {
+        //       loginStatus = false;
+        //   }
+        //   console.log(loginStatus);
+        
+        
+        
+        
+        
         // pass data to template
-        res.render('single-post', { post, loggedIn: req.session.loggedIn});
+        res.render('single-post', { post, loggedIn: true });
       })
       .catch(err => {
         console.log(err);
@@ -160,11 +173,25 @@ router.get('/profile/:id', (req, res) => {
               res.status(404).json({ message: 'No user found with this id'});
               return;
           }
-             // serialize the data
+             
+          
+          // let loginStatus;
+          // if (typeof req.session.passport != 'undefined') {
+          //   loginStatus =  req.session.passport.user.id;
+          // } else {
+          //     loginStatus = false;
+          // }
+          // console.log(loginStatus);
+          
+          
+          
+          
+          
+            // serialize the data
             const user = { username: username, github: github, linkedin: linkedin}
 
             // pass data to template
-            res.render('single-profile', { user, loggedIn: req.session.loggedIn});
+            res.render('single-profile', { user, loggedIn: true });
     
       })
       .catch(err => {
