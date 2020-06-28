@@ -6,7 +6,7 @@ const { Op } = require('sequelize');
 
 // -- search sample for Insomnia  GET http://localhost:3001/search/heroku
 router.get('/:post_text', (req, res) => {
-    Post.findOne({
+    Post.findAll({
       // limit: 10,
       where: {
         post_text: {
@@ -24,7 +24,7 @@ router.get('/:post_text', (req, res) => {
         include: [
           {
             model: User,
-            attributes: ['username', 'email', 'github', 'linkedin', 'bio', 'id']
+            attributes: ['username']
           }
         ]       
 
