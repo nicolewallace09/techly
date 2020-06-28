@@ -34,9 +34,8 @@ router.get('/', (req, res) => {
         .then(dbPostData => {
           // pass a single post object into the homepage template
           const posts = dbPostData.map(post => post.get({ plain: true }));
-
-
-          
+    
+          // defining log-in status
           let loginStatus;
           if (typeof req.session.passport != 'undefined') {
             loginStatus = req.session.passport.user;
@@ -44,15 +43,8 @@ router.get('/', (req, res) => {
           } else {
               loginStatus = false;
           }
-          console.log(loginStatus);
-
-
-
-
-          // replacing loggedIn: req.session.loggedIn with loggedIn: loginStatus
-
-          res.render('homepage', { posts,  loggedIn: loginStatus /*loggedIn: req.session.passport*/ }
-          //{ posts, loggedIn: req.session.loggedIn }
+          
+          res.render('homepage', { posts,  loggedIn: loginStatus }
           );
         })
         .catch(err => {
@@ -61,7 +53,6 @@ router.get('/', (req, res) => {
         });
 });
 
-// req.session.loggedIn
 
 // redirecting users to homepage once they log in
 router.get('/login', (req, res) => {
@@ -73,11 +64,11 @@ router.get('/login', (req, res) => {
 });
 
 
-
 // rendering sign up page 
 router.get('/signup', (req, res) => {
   res.render('signup');
 });
+
 
 // rendering one post to the single-post page
 router.get('/post/:id', (req, res) => {
