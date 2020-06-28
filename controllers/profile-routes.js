@@ -1,17 +1,18 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
-const withAuth = require('../utils/auth');
+const passportAuth = require('../utils/auth');
 
 // profile displaying posts created by logged in users 
 
-router.get('/', withAuth,(req, res) => {
+router.get('/', passportAuth,(req, res) => {
 Promise.all ([
   
 User.findAll({
   where: {
     // use the ID from the session
-    id: req.session.user_id
+    id: req.session.passport.user.id
+    //id: req.body.user_id
   },
   attributes: [
     'username',
@@ -25,7 +26,8 @@ User.findAll({
 Post.findAll({
       where: {
         // use the ID from the session
-        user_id: req.session.user_id
+        //user_id: req.session.user_id
+        user_id: req.session.passport.user_id
       },
       attributes: [
         'id',
@@ -51,10 +53,22 @@ Post.findAll({
     }) ])
       .then(arrData => {
         console.log(arrData);
+
+        let loginStatus;
+          if (typeof req.session.passport != 'undefined') {
+            loginStatus =  req.session.passport.user;
+          } else {
+              loginStatus = false;
+          }
+          console.log(loginStatus);
+
+
+
+
         //serialize data before passing to template
         const users = arrData[0].map(user => user.get({ plain: true }));
         const posts = arrData[1].map(post => post.get({ plain: true }));
-        res.render('profile', { posts, users, loggedIn: true }); 
+        res.render('profile', { posts, users, loggedIn: loginStatus }); 
       })
       .catch(err => {
         console.log(err);
@@ -107,13 +121,22 @@ router.get('/:id', /*withAuth,*/ (req, res) => {
     ]
     }) ])
     .then(arrData => {
+
+
+      let loginStatus;
+          if (typeof req.session.passport != 'undefined') {
+            loginStatus =  req.session.passport.user;
+          } else {
+              loginStatus = false;
+          }
+          console.log(loginStatus);
       
       
       
       const user = arrData[0].map(user => user.get({ plain: true }));
       const post = arrData[1].map(post => post.get({ plain: true }));
       //const post = dbPostData.get({ plain: true });
-      res.render('profile/id', { post, user, loggedIn: true }); 
+      res.render('profile/id', { post, user, loggedIn: loginStatus }); 
     })
     .catch(err => {
       console.log(err);

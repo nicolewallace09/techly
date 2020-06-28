@@ -117,20 +117,20 @@ router.get('/post/:id', (req, res) => {
         const post = dbPostData.get({ plain: true });
   
         
-        // let loginStatus;
-        //   if (typeof req.session.passport != 'undefined') {
-        //     loginStatus =  req.session.passport.user.id;
-        //   } else {
-        //       loginStatus = false;
-        //   }
-        //   console.log(loginStatus);
+        let loginStatus;
+          if (typeof req.session.passport != 'undefined') {
+            loginStatus =  req.session.passport.user;
+          } else {
+              loginStatus = false;
+          }
+          
         
         
         
         
         
         // pass data to template
-        res.render('single-post', { post, loggedIn: true });
+        res.render('single-post', { post, loggedIn: loginStatus });
       })
       .catch(err => {
         console.log(err);
@@ -177,13 +177,13 @@ router.get('/profile/:id', (req, res) => {
           }
              
           
-          // let loginStatus;
-          // if (typeof req.session.passport != 'undefined') {
-          //   loginStatus =  req.session.passport.user.id;
-          // } else {
-          //     loginStatus = false;
-          // }
-          // console.log(loginStatus);
+          let loginStatus;
+          if (typeof req.session.passport != 'undefined') {
+            loginStatus =  req.session.passport.user;
+          } else {
+              loginStatus = false;
+          }
+          console.log(loginStatus);
           
           
           
@@ -193,7 +193,7 @@ router.get('/profile/:id', (req, res) => {
             const user = { username: username, github: github, linkedin: linkedin}
 
             // pass data to template
-            res.render('single-profile', { user, loggedIn: true });
+            res.render('single-profile', { user, loggedIn: loginStatus });
     
       })
       .catch(err => {
