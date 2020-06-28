@@ -20,26 +20,14 @@ router.get('/:post_text', (req, res) => {
             // [sequelize.literal('(SELECT * FROM post WHERE post_text LIKE `Heroku`)'), 'post_text'],
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count'],
             'created_at'
-        ]
-        ,
+        ],
         include: [
-          {
-            model: Comment,
-            attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-            include: {
-              model: User,
-              attributes: ['username','id']
-            }
-          },
           {
             model: User,
             attributes: ['username', 'email', 'github', 'linkedin', 'bio', 'id']
           }
-        ]
-        // ,    
-        // exclude: [
-        //   { exclude: ['null'] }    
-        // ]    
+        ]       
+
       })    
       .then(dbSearchData => {
           console.log(dbSearchData);
@@ -48,7 +36,7 @@ router.get('/:post_text', (req, res) => {
           return;
         }
         // res.json(dbSearchData);
-        const posts = dbSearchData;
+        const posts = dbSearchData.map(post => post.get({ plain: true }));;
         res.render('search', { posts }); 
       })
       .catch(err => {
