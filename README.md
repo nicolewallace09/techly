@@ -16,7 +16,7 @@ This project is a CMS-style social networking site where developers can publish 
 The user may clone this repository from GitHub. This application requires Node.js, Express.js, Sequelize, mysql2, connection-session/express-session, and  Jest. If cloning the repo, run npm i to run all modules. To connect to the database run mysql -u root -p and enter password from .env file. Then source the schema.sql. To connect to the server run npm start. 
 
 ## Usage 
-This application will allow users to sign up if they are not a member, then once they are logged in they are able to view their user profiles, add new posts, and comment on other developers post.<br>
+This application will allow users to sign up if they are not a member, then once they are logged in they are able to view their user profiles, other users profiles, add new posts, and comment on/like other developers post. Users will also be able to search for keywords and return posts that contains that keyword. <br>
 Please view the site hosted on the Heroku platform - [Techly](https://techly.herokuapp.com/).<br>
 <img src="assets/images/screenshot.png">
 
