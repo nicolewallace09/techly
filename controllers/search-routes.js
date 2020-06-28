@@ -10,12 +10,15 @@ router.get('/:post_text', (req, res) => {
       // limit: 10,
       where: {
         post_text: {
-          [Op.like]: '%' + req.params.post_text + '%'
-        },
+          [Op.like]: '%' + req.params.post_text + '%',
+        }
+        // , post_text: {
+        //   [Op.notLike]: 'null',
       },
         attributes: [ 
             'id', 
             'post_text',
+            // [sequelize.literal('(SELECT * FROM post'), 'post_text'],
             // ,
             // [sequelize.literal('(SELECT * FROM post WHERE post_text LIKE `Heroku`)'), 'post_text'],
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count'],

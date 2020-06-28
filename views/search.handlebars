@@ -1,20 +1,32 @@
 
-<ol class="post-list">
-<!-- posts array -->
-{{#each posts as |post|}}
-  <ul>
-    </div>
-      {{> post-info post }} 
-    </div>
-  </ul>
+{{#each users}}
+  {{> profile-card}}
 {{/each}}
-</ol>
+
+<section>
+    <div id="profile-header-container">
+      <h2 class="text-warning" id="profile-header">Your Search</h2>
+    </div>
+
+    <div>
+          <ol class="post-list">
+          <!-- posts array -->
+          {{#each posts }}
+            <ul>
+              
+                {{> search-card }} 
+              
+            </ul>
+          {{/each}}
+          </ol>
+    </div>
+</section>
 
 
 
 
 
 {{!-- <script src="/javascript/add-post.js"></script> --}}
-<script src="/javascript/search.js"></script>
+{{!-- <script src="/javascript/search.js"></script> --}}
 
 
