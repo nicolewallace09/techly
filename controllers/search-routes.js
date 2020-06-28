@@ -7,7 +7,7 @@ const { Op } = require('sequelize');
 // -- search sample for Insomnia  GET http://localhost:3001/search/heroku
 router.get('/:post_text', (req, res) => {
     Post.findAll({
-      // limit: 10,
+      //limit: 10,
       where: {
         post_text: {
           [Op.like]: '%' + req.params.post_text + '%'
@@ -38,7 +38,7 @@ router.get('/:post_text', (req, res) => {
 
       })    
       .then(dbSearchData => {
-          console.log(dbSearchData);
+          console.log('search data', dbSearchData);
         if (!dbSearchData) {
           res.status(404).json({ message: 'No post found with this search criteria' });
           return;

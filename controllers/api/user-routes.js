@@ -1,6 +1,11 @@
 const router = require('express').Router();
 const { User, Post, Vote, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
+const passportAuth = require('../../utils/auth');
+const passport = require('../../utils/passport');
+const LocalStrategy = require('passport-local').Strategy;
+
+
 
 // GET /api/users
 // http://localhost:3001/api/users
@@ -82,6 +87,9 @@ router.post('/', (req, res) => {
     });
 });
 
+
+/*
+// comment out for development
 // LOGIN
 router.post('/login', (req, res) => {
     User.findOne({
@@ -110,8 +118,17 @@ router.post('/login', (req, res) => {
         });
     });
 });
+*/
 
-// LOGOUT
+
+router.post('/login', passport.authenticate('local'), function(req, res) {
+    res.render('homepage', 
+    {loggedIn: req.session.passport.user.id});
+});
+
+
+/*
+// LOGOUT  
 router.post('/logout', (req, res) => {
     if (req.session.loggedIn) {
         req.session.destroy(() => {
@@ -121,6 +138,45 @@ router.post('/logout', (req, res) => {
         res.status(404).end();
     }
 });
+*/
+
+
+// Logout that works with Passport
+
+router.post('/logout', function(req, res,) {
+    req.logout();
+    console.log('i did not break')
+    res.redirect('/');
+    console.log('did i redirect')
+  });
+
+
+
+
+
+
+/*
+router.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        console.log(session);
+    })
+});
+*/
+
+
+
+
+
+// router.get('/logout', (req, res) => {
+//         if (req.session.passport.user.id != null) {
+//             req.session.destroy(() => {
+//                 res.status(204).end();
+//             });
+//         } else {
+//             res.status(404).end();
+//         }
+// });
+
 
 // PUT /api/users/1 - similar to UPDATE 
 router.put('/:id', /*withAuth,*/ (req, res) => {
@@ -163,6 +219,7 @@ router.delete('/:id', /*withAuth,*/ (req, res) => {
             res.status(500).json(err);
         });
 });
+
 
 module.exports = router;
 

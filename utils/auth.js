@@ -7,3 +7,14 @@ const withAuth = (req, res, next) => {
   };
   
   module.exports = withAuth;
+
+
+  const passportAuth = (req, res, next) => {
+    // if (!req.session.user_id)
+    if (req.user) {
+      return next();
+    }
+    return res.redirect('/');
+  };
+  
+  module.exports = passportAuth;

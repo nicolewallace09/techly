@@ -100,10 +100,18 @@ const withAuth = require('../utils/auth');
                 res.status(404).json({ message: 'No user found with this id'});
                 return;
             }
+
+            let loginStatus;
+          if (typeof req.session.passport != 'undefined') {
+            loginStatus =  req.session.passport.user;
+          } else {
+              loginStatus = false;
+          }
+          console.log(loginStatus);
             //const user = { username: username, github: github, linkedin: linkedin, email: eamil, bio: bio}
             const user = dbUserData.get({ plain: true });
             
-            res.render('single-profile', { user, loggedIn: true });
+            res.render('single-profile', { user, loggedIn: loginStatus });
         })
         .catch(err => {
             console.log(err);
@@ -206,10 +214,21 @@ router.get('/:id', withAuth,(req, res) => {
       }) ])
         .then(arrData => {
           console.log('here is the data', arrData);
+
+          let loginStatus;
+          if (typeof req.session.passport != 'undefined') {
+            loginStatus =  req.session.passport.user;
+          } else {
+              loginStatus = false;
+          }
+          console.log(loginStatus);
+
+
+
           //serialize data before passing to template
           const users = arrData[0].map(user => user.get({ plain: true }));
           const posts = arrData[1].map(post => post.get({ plain: true }));
-          res.render('single-profile', { posts, users, loggedIn: true }); 
+          res.render('single-profile', { posts, users, loggedIn: loginStatus }); 
         })
         .catch(err => {
           console.log(err);
