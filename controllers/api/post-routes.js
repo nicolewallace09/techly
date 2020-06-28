@@ -92,9 +92,7 @@ router.get('/:id', (req,res)=>{
 router.post('/', passportAuth, (req,res)=>{
     //expects {title, post_text, user_id}
     Post.create({
-        
         post_text: req.body.post_text,
-        //user_id: req.session.user_id
         user_id: req.session.passport.user.id
     })
     .then(dbPostData => res.json(dbPostData))
@@ -102,8 +100,8 @@ router.post('/', passportAuth, (req,res)=>{
         console.log(err);
         res.status(500).json(err);
     });
-
 });
+
 
 // PUT /api/posts/upvote
 router.put('/upvote', passportAuth, (req, res) => {
@@ -122,12 +120,9 @@ router.put('/upvote', passportAuth, (req, res) => {
 
 //update a post  PUT /api/posts/1 
 router.put('/:id', (req,res) => {
-    //expects {title, post_text, user_id}
-
-    //if req.body has exact key value pair to match the model, you can just req.body instead 
+    //expects {post_text}
     Post.update(
         {
-            // title: req.body.title,
             post_text: req.body.post_text
         },
         {
@@ -146,7 +141,6 @@ router.put('/:id', (req,res) => {
         console.log(err);
         res.status(500).json(err);
     });
-
 });
 
 
