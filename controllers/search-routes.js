@@ -47,7 +47,7 @@ const { Op } = require('sequelize');
 // // // -- get all posts; GET "/api/posts"
 router.get('/:post_text', (req, res) => {
     Post.findAll({
-      limit: 10,
+      //limit: 10,
       where: {
         post_text: {
           [Op.like]: '%' + req.params.post_text + '%'
