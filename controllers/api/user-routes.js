@@ -141,10 +141,20 @@ router.post('/logout', (req, res) => {
 
 
 // Logout that works with Passport
+
+/*
 router.get('/logout', (req, res) => {
-
     req.session.destroy((err) => {
+        console.log(session);
+    })
+});
+*/
 
+
+
+
+
+router.get('/logout', (req, res) => {
         if (req.session.passport.user.id != null) {
             req.session.destroy(() => {
                 res.status(204).end();
@@ -152,7 +162,6 @@ router.get('/logout', (req, res) => {
         } else {
             res.status(404).end();
         }
-    });
 });
 
 
